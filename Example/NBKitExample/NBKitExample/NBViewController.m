@@ -1,0 +1,72 @@
+//
+//  NBViewController.m
+//  NBKitExample
+//
+//  Created by Nathan Borror on 5/28/13.
+//  Copyright (c) 2013 Nathan Borror. All rights reserved.
+//
+
+#import "NBViewController.h"
+#import "NBBounceViewController.h"
+#import "NBCardTossViewController.h"
+
+@interface NBViewController ()
+{
+  UITableView *tableview;
+  NSArray *titles;
+  NSArray *controllers;
+}
+@end
+
+@implementation NBViewController
+
+- (id)init
+{
+  self = [super init];
+  if (self) {
+    [self.navigationItem setTitle:@"NBKit"];
+
+    titles = @[
+      @"Bounce",
+      @"Card Toss"
+    ];
+
+    controllers = @[
+      [NBBounceViewController alloc],
+      [NBCardTossViewController alloc]
+    ];
+
+    tableview = [[UITableView alloc] initWithFrame:self.view.bounds];
+    [tableview setDelegate:self];
+    [tableview setDataSource:self];
+    [self.view addSubview:tableview];
+  }
+  return self;
+}
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+  return [controllers count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  UITableViewCell *cell = [tableview dequeueReusableCellWithIdentifier:@"TableViewCell"];
+  if (!cell) {
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TableViewCell"];
+  }
+  [cell.textLabel setText:[titles objectAtIndex:indexPath.row]];
+  return cell;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  UIViewController *viewController = [[controllers objectAtIndex:indexPath.row] init];
+  [self.navigationController pushViewController:viewController animated:YES];
+}
+
+@end

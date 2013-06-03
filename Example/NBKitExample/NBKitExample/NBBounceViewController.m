@@ -9,41 +9,45 @@
 #import "NBBounceViewController.h"
 #import "NBAnimationHelper.h"
 
+static const CGFloat kBallWidth = 50;
+static const CGFloat kBallHeight = kBallWidth;
+
 @interface NBBounceViewController ()
 {
   UIButton *ball;
-
-  CGPoint startPoint;
-  CGPoint endPoint;
 }
 @end
 
 @implementation NBBounceViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+  self = [super init];
   if (self) {
     [self.view setBackgroundColor:[UIColor whiteColor]];
-
-    ball = [[UIButton alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.view.bounds)/2)-25, 20, 50, 50)];
-    [ball addTarget:self action:@selector(drop) forControlEvents:UIControlEventTouchUpInside];
-    [ball setBackgroundColor:[UIColor grayColor]];
-    [ball.layer setCornerRadius:25];
-    [self.view addSubview:ball];
-
-    startPoint = ball.center;
-    endPoint = CGPointMake(ball.center.x, CGRectGetHeight(self.view.bounds)-100);
+    [self.navigationItem setTitle:@"Bounce"];
   }
   return self;
 }
 
+- (void)viewDidLoad
+{
+  ball = [[UIButton alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.view.frame)/2)-(kBallWidth/2), kBallHeight/2, kBallWidth, kBallHeight)];
+  [ball setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
+  [ball addTarget:self action:@selector(drop) forControlEvents:UIControlEventTouchUpInside];
+  [ball setBackgroundColor:[UIColor colorWithRed:.21 green:.51 blue:.89 alpha:1]];
+  [ball.layer setCornerRadius:25];
+  [self.view addSubview:ball];
+}
+
 - (void)drop
 {
-  if (ball.center.y < endPoint.y) {
-    [NBAnimationHelper animatePosition:ball from:startPoint to:endPoint forKey:@"bounce" delegate:nil];
+  if (ball.center.y < CGRectGetHeight(self.view.frame)/2) {
+    CGPoint endPoint = CGPointMake(ball.center.x, CGRectGetHeight(self.view.frame)-kBallHeight);
+    [NBAnimationHelper animatePosition:ball from:ball.center to:endPoint forKey:@"bounce" delegate:nil];
   } else {
-    [NBAnimationHelper animatePosition:ball from:endPoint to:startPoint forKey:@"bounce" delegate:nil];
+    CGPoint endPoint = CGPointMake(ball.center.x, kBallHeight);
+    [NBAnimationHelper animatePosition:ball from:ball.center to:endPoint forKey:@"bounce" delegate:nil];
   }
 }
 

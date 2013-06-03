@@ -13,7 +13,6 @@
 @interface NBViewController ()
 {
   UITableView *tableview;
-  NSArray *titles;
   NSArray *controllers;
 }
 @end
@@ -26,14 +25,9 @@
   if (self) {
     [self.navigationItem setTitle:@"NBKit"];
 
-    titles = @[
-      @"Bounce",
-      @"Card Toss"
-    ];
-
     controllers = @[
-      [NBBounceViewController alloc],
-      [NBCardTossViewController alloc]
+      [[NBBounceViewController alloc] init],
+      [[NBCardTossViewController alloc] init]
     ];
 
     tableview = [[UITableView alloc] initWithFrame:self.view.bounds];
@@ -57,7 +51,9 @@
   if (!cell) {
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TableViewCell"];
   }
-  [cell.textLabel setText:[titles objectAtIndex:indexPath.row]];
+
+  UIViewController *viewController = [controllers objectAtIndex:indexPath.row];
+  [cell.textLabel setText:viewController.navigationItem.title];
   return cell;
 }
 
@@ -65,7 +61,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UIViewController *viewController = [[controllers objectAtIndex:indexPath.row] init];
+  UIViewController *viewController = [controllers objectAtIndex:indexPath.row];
   [self.navigationController pushViewController:viewController animated:YES];
 }
 

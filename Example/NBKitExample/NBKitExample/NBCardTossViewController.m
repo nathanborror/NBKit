@@ -10,6 +10,10 @@
 #import "NBAnimationHelper.h"
 
 static inline double radians(double degrees) {return degrees * M_PI / 180;}
+static const CGFloat kButtonHeight = 44;
+static const CGFloat kButtonMargin = 20;
+static const CGFloat kCardWidth = 200;
+static const CGFloat kCardHeight = 200;
 
 @interface NBCardTossViewController ()
 {
@@ -22,27 +26,35 @@ static inline double radians(double degrees) {return degrees * M_PI / 180;}
 
 @implementation NBCardTossViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+  self = [super init];
   if (self) {
     [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self.navigationItem setTitle:@"Card Toss"];
   }
   return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidLoad
 {
-  [super viewWillAppear:animated];
+  UIButton *show = [[UIButton alloc] initWithFrame:CGRectMake(kButtonMargin, CGRectGetHeight(self.view.frame)-(kButtonHeight+kButtonMargin), (CGRectGetWidth(self.view.frame)/2)-kButtonMargin-(kButtonMargin/2), kButtonHeight)];
+  [show addTarget:self action:@selector(show) forControlEvents:UIControlEventTouchUpInside];
+  [show setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
+  [show setTitle:@"Show" forState:UIControlStateNormal];
+  [show setBackgroundColor:[UIColor colorWithRed:.21 green:.51 blue:.89 alpha:1]];
+  [show.layer setCornerRadius:4];
+  [self.view addSubview:show];
 
-  UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(20, CGRectGetHeight(self.view.bounds)-64, CGRectGetWidth(self.view.bounds)-40, 44)];
-  [button addTarget:self action:@selector(show) forControlEvents:UIControlEventTouchUpInside];
-  [button setTitle:@"Show" forState:UIControlStateNormal];
-  [button setBackgroundColor:[UIColor colorWithWhite:.8 alpha:1]];
-  [button.layer setCornerRadius:4];
-  [self.view addSubview:button];
+  UIButton *hide = [[UIButton alloc] initWithFrame:CGRectOffset(show.bounds, CGRectGetMaxX(show.frame)+kButtonMargin, CGRectGetMinY(show.frame))];
+  [hide addTarget:self action:@selector(hide) forControlEvents:UIControlEventTouchUpInside];
+  [hide setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
+  [hide setTitle:@"Hide" forState:UIControlStateNormal];
+  [hide setBackgroundColor:[UIColor colorWithRed:.21 green:.51 blue:.89 alpha:1]];
+  [hide.layer setCornerRadius:4];
+  [self.view addSubview:hide];
 
-  card = [[UIView alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.view.bounds)/2)-100, 100, 200, 200)];
+  card = [[UIView alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.view.frame)/2)-(kCardWidth/2), kCardWidth/2, kCardWidth, kCardHeight)];
   [card setBackgroundColor:[UIColor whiteColor]];
   [card.layer setCornerRadius:4];
   [card.layer setShadowColor:[UIColor blackColor].CGColor];
@@ -61,15 +73,16 @@ static inline double radians(double degrees) {return degrees * M_PI / 180;}
 
 - (void)show
 {
-  if (card.center.y < endPoint.y) {
-    [NBAnimationHelper animatePosition:card from:startPoint to:endPoint forKey:@"position" delegate:nil];
-    [NBAnimationHelper animateTransform:card
-                                   from:CATransform3DRotate(card.layer.transform, radians(20), 0, 0, 1)
-                                     to:card.layer.transform
-                                 forKey:@"rotate" delegate:nil];
-  } else {
-    [NBAnimationHelper animatePosition:card from:endPoint to:CGPointMake(endPoint.x, endPoint.y+450) forKey:@"position" delegate:self];
-  }
+  [NBAnimationHelper animatePosition:card from:startPoint to:endPoint forKey:@"position" delegate:nil];
+  [NBAnimationHelper animateTransform:card
+                                 from:CATransform3DRotate(card.layer.transform, radians(20), 0, 0, 1)
+                                   to:card.layer.transform
+                               forKey:@"rotate" delegate:nil];
+}
+
+- (void)hide
+{
+  [NBAnimationHelper animatePosition:card from:endPoint to:CGPointMake(endPoint.x, endPoint.y+450) forKey:@"position" delegate:self];
 }
 
 #pragma mark - CAAnimation

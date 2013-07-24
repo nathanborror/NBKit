@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D81A8EF2179F33C300E2845A /* DynamicSpringViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D81A8EF1179F33C300E2845A /* DynamicSpringViewController.m */; };
 		D84B9ABA1755D5DD0029D763 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84B9AB91755D5DD0029D763 /* UIKit.framework */; };
 		D84B9ABC1755D5DD0029D763 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84B9ABB1755D5DD0029D763 /* Foundation.framework */; };
 		D84B9ABE1755D5DD0029D763 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84B9ABD1755D5DD0029D763 /* CoreGraphics.framework */; };
@@ -26,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D81A8EF0179F33C300E2845A /* DynamicSpringViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicSpringViewController.h; sourceTree = "<group>"; };
+		D81A8EF1179F33C300E2845A /* DynamicSpringViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicSpringViewController.m; sourceTree = "<group>"; };
 		D84B9AB61755D5DD0029D763 /* NBKitExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NBKitExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D84B9AB91755D5DD0029D763 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D84B9ABB1755D5DD0029D763 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -110,6 +113,8 @@
 				D84B9AE91755D90D0029D763 /* NBCardTossViewController.h */,
 				D84B9AEA1755D90D0029D763 /* NBCardTossViewController.m */,
 				D84B9AC01755D5DD0029D763 /* Supporting Files */,
+				D81A8EF0179F33C300E2845A /* DynamicSpringViewController.h */,
+				D81A8EF1179F33C300E2845A /* DynamicSpringViewController.m */,
 			);
 			path = NBKitExample;
 			sourceTree = "<group>";
@@ -223,6 +228,7 @@
 				D84B9AE61755D69D0029D763 /* NBDirectionGestureRecognizer.m in Sources */,
 				D84B9AEB1755D90D0029D763 /* NBCardTossViewController.m in Sources */,
 				D84B9AEE1755D9F20029D763 /* NBBounceViewController.m in Sources */,
+				D81A8EF2179F33C300E2845A /* DynamicSpringViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

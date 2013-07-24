@@ -9,6 +9,7 @@
 #import "NBViewController.h"
 #import "NBBounceViewController.h"
 #import "NBCardTossViewController.h"
+#import "DynamicSpringViewController.h"
 
 @interface NBViewController ()
 {
@@ -27,7 +28,8 @@
 
     controllers = @[
       [[NBBounceViewController alloc] init],
-      [[NBCardTossViewController alloc] init]
+      [[NBCardTossViewController alloc] init],
+      [[DynamicSpringViewController alloc] init]
     ];
 
     tableview = [[UITableView alloc] initWithFrame:self.view.bounds];

@@ -9,12 +9,12 @@
 #import "NBBounceViewController.h"
 #import "NBAnimationHelper.h"
 
-static const CGFloat kBallWidth = 50;
-static const CGFloat kBallHeight = kBallWidth;
+static const CGFloat kBallSize = 50.0;
 
 @interface NBBounceViewController ()
 {
   UIButton *ball;
+  NSTimer *timer;
 }
 @end
 
@@ -24,29 +24,40 @@ static const CGFloat kBallHeight = kBallWidth;
 {
   self = [super init];
   if (self) {
-    [self.view setBackgroundColor:[UIColor whiteColor]];
     [self.navigationItem setTitle:@"Bounce"];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self setEdgesForExtendedLayout:UIExtendedEdgeNone];
   }
   return self;
 }
 
 - (void)viewDidLoad
 {
-  ball = [[UIButton alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.view.frame)/2)-(kBallWidth/2), kBallHeight/2, kBallWidth, kBallHeight)];
+  ball = [[UIButton alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.view.frame)/2)-(kBallSize/2), kBallSize/2, kBallSize, kBallSize)];
   [ball setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
-  [ball addTarget:self action:@selector(drop) forControlEvents:UIControlEventTouchUpInside];
-  [ball setBackgroundColor:[UIColor colorWithRed:.21 green:.51 blue:.89 alpha:1]];
-  [ball.layer setCornerRadius:25];
+  [ball addTarget:self action:@selector(bounce) forControlEvents:UIControlEventTouchUpInside];
+  [ball setBackgroundColor:[UIColor redColor]];
+  [ball.layer setCornerRadius:kBallSize/2];
   [self.view addSubview:ball];
 }
 
-- (void)drop
+- (void)viewDidAppear:(BOOL)animated
+{
+  timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(bounce) userInfo:nil repeats:YES];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+  [timer invalidate];
+}
+
+- (void)bounce
 {
   if (ball.center.y < CGRectGetHeight(self.view.frame)/2) {
-    CGPoint endPoint = CGPointMake(ball.center.x, CGRectGetHeight(self.view.frame)-kBallHeight);
+    CGPoint endPoint = CGPointMake(ball.center.x, CGRectGetHeight(self.view.frame)-kBallSize);
     [NBAnimationHelper animatePosition:ball from:ball.center to:endPoint forKey:@"bounce" delegate:nil];
   } else {
-    CGPoint endPoint = CGPointMake(ball.center.x, kBallHeight);
+    CGPoint endPoint = CGPointMake(ball.center.x, kBallSize);
     [NBAnimationHelper animatePosition:ball from:ball.center to:endPoint forKey:@"bounce" delegate:nil];
   }
 }

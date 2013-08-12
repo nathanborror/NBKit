@@ -28,12 +28,7 @@ static const CGFloat kShrinkDuration = .3;
 - (void)activate
 {
   [UIView animateWithDuration:kShrinkDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-    CGFloat x = CGRectGetMinX(self.frame)+kShrinkAmount;
-    CGFloat y = CGRectGetMinY(self.frame)+kShrinkAmount;
-    CGFloat w = CGRectGetWidth(self.frame)-(kShrinkAmount*2);
-    CGFloat h = CGRectGetHeight(self.frame)-(kShrinkAmount*2);
-
-    [self setFrame:CGRectMake(x, y, w, h)];
+    [self setFrame:CGRectInset(self.frame, kShrinkAmount, kShrinkAmount)];
     [self setBackgroundColor:ACTIVE];
   } completion:nil];
 }
@@ -41,12 +36,7 @@ static const CGFloat kShrinkDuration = .3;
 - (void)inactivate
 {
   [UIView animateWithDuration:kShrinkDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-    CGFloat x = CGRectGetMinX(self.frame)-kShrinkAmount;
-    CGFloat y = CGRectGetMinY(self.frame)-kShrinkAmount;
-    CGFloat w = CGRectGetWidth(self.frame)+(kShrinkAmount*2);
-    CGFloat h = CGRectGetHeight(self.frame)+(kShrinkAmount*2);
-
-    [self setFrame:CGRectMake(x, y, w, h)];
+    [self setFrame:CGRectInset(self.frame, -kShrinkAmount, -kShrinkAmount)];
     [self setBackgroundColor:INACTIVE];
   } completion:nil];
 }

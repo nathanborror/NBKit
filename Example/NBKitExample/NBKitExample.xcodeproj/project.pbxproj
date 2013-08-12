@@ -24,6 +24,7 @@
 		D84B9AE81755D71D0029D763 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84B9AE71755D71D0029D763 /* QuartzCore.framework */; };
 		D84B9AEB1755D90D0029D763 /* NBCardTossViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D84B9AEA1755D90D0029D763 /* NBCardTossViewController.m */; };
 		D84B9AEE1755D9F20029D763 /* NBBounceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D84B9AED1755D9F20029D763 /* NBBounceViewController.m */; };
+		D864953C17B873FB006E7E46 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D864953B17B873FB006E7E46 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		D84B9AEA1755D90D0029D763 /* NBCardTossViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBCardTossViewController.m; sourceTree = "<group>"; };
 		D84B9AEC1755D9F20029D763 /* NBBounceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBBounceViewController.h; sourceTree = "<group>"; };
 		D84B9AED1755D9F20029D763 /* NBBounceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBBounceViewController.m; sourceTree = "<group>"; };
+		D864953B17B873FB006E7E46 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				D84B9AC01755D5DD0029D763 /* Supporting Files */,
 				D81A8EF0179F33C300E2845A /* DynamicSpringViewController.h */,
 				D81A8EF1179F33C300E2845A /* DynamicSpringViewController.m */,
+				D864953B17B873FB006E7E46 /* Images.xcassets */,
 			);
 			path = NBKitExample;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D84B9AC41755D5DD0029D763 /* InfoPlist.strings in Resources */,
+				D864953C17B873FB006E7E46 /* Images.xcassets in Resources */,
 				D84B9ACC1755D5DD0029D763 /* Default.png in Resources */,
 				D84B9ACE1755D5DD0029D763 /* Default@2x.png in Resources */,
 				D84B9AD01755D5DD0029D763 /* Default-568h@2x.png in Resources */,
@@ -305,6 +309,8 @@
 		D84B9ADA1755D5DD0029D763 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NBKitExample/NBKitExample-Prefix.pch";
 				INFOPLIST_FILE = "NBKitExample/NBKitExample-Info.plist";
@@ -316,6 +322,8 @@
 		D84B9ADB1755D5DD0029D763 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NBKitExample/NBKitExample-Prefix.pch";
 				INFOPLIST_FILE = "NBKitExample/NBKitExample-Info.plist";

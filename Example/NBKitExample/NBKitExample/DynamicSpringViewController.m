@@ -31,7 +31,6 @@ static const CGFloat kInitialDamping = .6;
   if (self = [super init]) {
     [self setTitle:@"Spring Animation"];
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    [self setEdgesForExtendedLayout:UIExtendedEdgeNone];
   }
   return self;
 }

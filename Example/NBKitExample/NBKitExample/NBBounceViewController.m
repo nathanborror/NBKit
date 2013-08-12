@@ -26,7 +26,6 @@ static const CGFloat kBallSize = 50.0;
   if (self) {
     [self.navigationItem setTitle:@"Bounce"];
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    [self setEdgesForExtendedLayout:UIExtendedEdgeNone];
   }
   return self;
 }

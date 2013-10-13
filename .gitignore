@@ -1,7 +1,5 @@
 .DS_Store
 
-*.pbxuser
-*.xcodeproj/xcuserdata/*.xcuserdatad
-*.xcuserdatad
+xcuserdata/
+xcshareddata/
 build/
-Example/NBKitExample/NBKitExample.xcodeproj/project.xcworkspace/xcuserdata/

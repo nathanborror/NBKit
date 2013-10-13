@@ -69,29 +69,26 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
 @end
 
 
-@interface NBReorderableCollectionViewLayout ()
+@implementation NBReorderableCollectionViewLayout {
+  NSIndexPath *_selectedItemIndexPath;
+  UIView *_currentView;
+  CGPoint _currentViewCenter;
+  CGPoint _panTranslationInCollectionView;
+  CADisplayLink *_displayLink;
+}
 
-@property (strong, nonatomic) NSIndexPath *selectedItemIndexPath;
-@property (strong, nonatomic) UIView *currentView;
-@property (assign, nonatomic) CGPoint currentViewCenter;
-@property (assign, nonatomic) CGPoint panTranslationInCollectionView;
-@property (strong, nonatomic) CADisplayLink *displayLink;
+- (id)init {
+  if (self = [super init]) {
+    _scrollingSpeed = 300.0f;
+    _scrollingTriggerEdgeInsets = UIEdgeInsetsMake(50.0f, 50.0f, 50.0f, 50.0f);
 
-@property (assign, nonatomic, readonly) id<NBReorderableCollectionViewDataSource> dataSource;
-@property (assign, nonatomic, readonly) id<NBReorderableCollectionViewDelegateFlowLayout> delegate;
-
-@end
-
-@implementation NBReorderableCollectionViewLayout
-
-- (void)setDefaults {
-  _scrollingSpeed = 300.0f;
-  _scrollingTriggerEdgeInsets = UIEdgeInsetsMake(50.0f, 50.0f, 50.0f, 50.0f);
+    [self addObserver:self forKeyPath:COLLECTION_VIEW_KEYPATH options:NSKeyValueObservingOptionNew context:nil];
+  }
+  return self;
 }
 
 - (void)setupCollectionView {
-  _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                                              action:@selector(handleLongPressGesture:)];
+  _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressGesture:)];
   _longPressGestureRecognizer.delegate = self;
 
   // Links the default long press gesture recognizer to the custom long press gesture recognizer we are creating now
@@ -104,8 +101,7 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
 
   [self.collectionView addGestureRecognizer:_longPressGestureRecognizer];
 
-  _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
-                                                                  action:@selector(handlePanGesture:)];
+  _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
   _panGestureRecognizer.delegate = self;
   [self.collectionView addGestureRecognizer:_panGestureRecognizer];
 
@@ -113,31 +109,8 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleApplicationWillResignActive:) name: UIApplicationWillResignActiveNotification object:nil];
 }
 
-- (id)init {
-  self = [super init];
-  if (self) {
-    [self setDefaults];
-    [self addObserver:self forKeyPath:COLLECTION_VIEW_KEYPATH options:NSKeyValueObservingOptionNew context:nil];
-  }
-  return self;
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder {
-  if (self = [super initWithCoder:aDecoder]) {
-    [self setDefaults];
-    [self addObserver:self forKeyPath:COLLECTION_VIEW_KEYPATH options:NSKeyValueObservingOptionNew context:nil];
-  }
-  return self;
-}
-
-- (void)dealloc {
-  [self invalidatesScrollTimer];
-  [self removeObserver:self forKeyPath:COLLECTION_VIEW_KEYPATH];
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
-}
-
 - (void)applyLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes {
-  if ([layoutAttributes.indexPath isEqual:self.selectedItemIndexPath]) {
+  if ([layoutAttributes.indexPath isEqual:_selectedItemIndexPath]) {
     layoutAttributes.hidden = YES;
   }
 }
@@ -151,8 +124,8 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
 }
 
 - (void)invalidateLayoutIfNecessary {
-  NSIndexPath *newIndexPath = [self.collectionView indexPathForItemAtPoint:self.currentView.center];
-  NSIndexPath *previousIndexPath = self.selectedItemIndexPath;
+  NSIndexPath *newIndexPath = [self.collectionView indexPathForItemAtPoint:_currentView.center];
+  NSIndexPath *previousIndexPath = _selectedItemIndexPath;
 
   if ((newIndexPath == nil) || [newIndexPath isEqual:previousIndexPath]) {
     return;
@@ -163,37 +136,32 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
     return;
   }
 
-  self.selectedItemIndexPath = newIndexPath;
+  _selectedItemIndexPath = newIndexPath;
 
   if ([self.dataSource respondsToSelector:@selector(collectionView:itemAtIndexPath:willMoveToIndexPath:)]) {
     [self.dataSource collectionView:self.collectionView itemAtIndexPath:previousIndexPath willMoveToIndexPath:newIndexPath];
   }
 
-  __weak typeof(self) weakSelf = self;
   [self.collectionView performBatchUpdates:^{
-    __strong typeof(self) strongSelf = weakSelf;
-    if (strongSelf) {
-      [strongSelf.collectionView deleteItemsAtIndexPaths:@[ previousIndexPath ]];
-      [strongSelf.collectionView insertItemsAtIndexPaths:@[ newIndexPath ]];
-    }
+    [self.collectionView deleteItemsAtIndexPaths:@[previousIndexPath]];
+    [self.collectionView insertItemsAtIndexPaths:@[newIndexPath]];
   } completion:^(BOOL finished) {
-    __strong typeof(self) strongSelf = weakSelf;
-    if ([strongSelf.dataSource respondsToSelector:@selector(collectionView:itemAtIndexPath:didMoveToIndexPath:)]) {
-      [strongSelf.dataSource collectionView:strongSelf.collectionView itemAtIndexPath:previousIndexPath didMoveToIndexPath:newIndexPath];
+    if ([self.dataSource respondsToSelector:@selector(collectionView:itemAtIndexPath:didMoveToIndexPath:)]) {
+      [self.dataSource collectionView:self.collectionView itemAtIndexPath:previousIndexPath didMoveToIndexPath:newIndexPath];
     }
   }];
 }
 
 - (void)invalidatesScrollTimer {
-  if (!self.displayLink.paused) {
-    [self.displayLink invalidate];
+  if (!_displayLink.paused) {
+    [_displayLink invalidate];
   }
-  self.displayLink = nil;
+  _displayLink = nil;
 }
 
 - (void)setupScrollTimerInDirection:(NBScrollingDirection)direction {
-  if (!self.displayLink.paused) {
-    NBScrollingDirection oldDirection = [self.displayLink.userInfo[SCROLL_DIRECTION_KEYPATH] integerValue];
+  if (!_displayLink.paused) {
+    NBScrollingDirection oldDirection = [_displayLink.userInfo[SCROLL_DIRECTION_KEYPATH] integerValue];
 
     if (direction == oldDirection) {
       return;
@@ -202,15 +170,14 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
 
   [self invalidatesScrollTimer];
 
-  self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(handleScroll:)];
-  self.displayLink.userInfo = @{SCROLL_DIRECTION_KEYPATH: @(direction)};
-
-  [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+  _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(handleScroll:)];
+  _displayLink.userInfo = @{SCROLL_DIRECTION_KEYPATH: @(direction)};
+  [_displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
 }
 
 // Tight loop, allocate memory sparely, even if they are stack allocation.
-- (void)handleScroll:(CADisplayLink *)displayLink {
-  NBScrollingDirection direction = (NBScrollingDirection)[displayLink.userInfo[SCROLL_DIRECTION_KEYPATH] integerValue];
+- (void)handleScroll:(CADisplayLink *)aDisplayLink {
+  NBScrollingDirection direction = (NBScrollingDirection)[aDisplayLink.userInfo[SCROLL_DIRECTION_KEYPATH] integerValue];
   if (direction == NBScrollingDirectionUnknown) {
     return;
   }
@@ -218,7 +185,7 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
   CGSize frameSize = self.collectionView.bounds.size;
   CGSize contentSize = self.collectionView.contentSize;
   CGPoint contentOffset = self.collectionView.contentOffset;
-  CGFloat distance = self.scrollingSpeed / kFramesPerSecond;
+  CGFloat distance = _scrollingSpeed / kFramesPerSecond;
   CGPoint translation = CGPointZero;
 
   switch(direction) {
@@ -264,8 +231,8 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
       break;
   }
 
-  self.currentViewCenter = CGPointAdd(self.currentViewCenter, translation);
-  self.currentView.center = CGPointAdd(self.currentViewCenter, self.panTranslationInCollectionView);
+  _currentViewCenter = CGPointAdd(_currentViewCenter, translation);
+  _currentView.center = CGPointAdd(_currentViewCenter, _panTranslationInCollectionView);
   self.collectionView.contentOffset = CGPointAdd(contentOffset, translation);
 }
 
@@ -279,15 +246,15 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
         return;
       }
 
-      self.selectedItemIndexPath = currentIndexPath;
+      _selectedItemIndexPath = currentIndexPath;
 
       if ([self.delegate respondsToSelector:@selector(collectionView:layout:willBeginDraggingItemAtIndexPath:)]) {
-        [self.delegate collectionView:self.collectionView layout:self willBeginDraggingItemAtIndexPath:self.selectedItemIndexPath];
+        [self.delegate collectionView:self.collectionView layout:self willBeginDraggingItemAtIndexPath:_selectedItemIndexPath];
       }
 
-      UICollectionViewCell *collectionViewCell = [self.collectionView cellForItemAtIndexPath:self.selectedItemIndexPath];
+      UICollectionViewCell *collectionViewCell = [self.collectionView cellForItemAtIndexPath:_selectedItemIndexPath];
 
-      self.currentView = [[UIView alloc] initWithFrame:collectionViewCell.frame];
+      _currentView = [[UIView alloc] initWithFrame:collectionViewCell.frame];
 
       collectionViewCell.highlighted = YES;
       UIImageView *highlightedImageView = [[UIImageView alloc] initWithImage:[collectionViewCell rasterizedImage]];
@@ -299,76 +266,50 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
       imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
       imageView.alpha = 0.0f;
 
-      [self.currentView addSubview:imageView];
-      [self.currentView addSubview:highlightedImageView];
-      [self.collectionView addSubview:self.currentView];
+      [_currentView addSubview:imageView];
+      [_currentView addSubview:highlightedImageView];
+      [self.collectionView addSubview:_currentView];
 
-      self.currentViewCenter = self.currentView.center;
+      _currentViewCenter = _currentView.center;
 
-      __weak typeof(self) weakSelf = self;
-      [UIView
-       animateWithDuration:0.3
-       delay:0.0
-       options:UIViewAnimationOptionBeginFromCurrentState
-       animations:^{
-         __strong typeof(self) strongSelf = weakSelf;
-         if (strongSelf) {
-           strongSelf.currentView.transform = CGAffineTransformMakeScale(1.1f, 1.1f);
-           highlightedImageView.alpha = 0.0f;
-           imageView.alpha = 1.0f;
-         }
-       }
-       completion:^(BOOL finished) {
-         __strong typeof(self) strongSelf = weakSelf;
-         if (strongSelf) {
-           [highlightedImageView removeFromSuperview];
-
-           if ([strongSelf.delegate respondsToSelector:@selector(collectionView:layout:didBeginDraggingItemAtIndexPath:)]) {
-             [strongSelf.delegate collectionView:strongSelf.collectionView layout:strongSelf didBeginDraggingItemAtIndexPath:strongSelf.selectedItemIndexPath];
-           }
-         }
-       }];
+      [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        _currentView.transform = CGAffineTransformMakeScale(1.1f, 1.1f);
+        highlightedImageView.alpha = 0.0f;
+        imageView.alpha = 1.0f;
+      } completion:^(BOOL finished) {
+        [highlightedImageView removeFromSuperview];
+        if ([self.delegate respondsToSelector:@selector(collectionView:layout:didBeginDraggingItemAtIndexPath:)]) {
+          [self.delegate collectionView:self.collectionView layout:self didBeginDraggingItemAtIndexPath:_selectedItemIndexPath];
+        }
+      }];
 
       [self invalidateLayout];
     } break;
     case UIGestureRecognizerStateCancelled:
     case UIGestureRecognizerStateEnded: {
-      NSIndexPath *currentIndexPath = self.selectedItemIndexPath;
+      NSIndexPath *currentIndexPath = _selectedItemIndexPath;
 
       if (currentIndexPath) {
         if ([self.delegate respondsToSelector:@selector(collectionView:layout:willEndDraggingItemAtIndexPath:)]) {
           [self.delegate collectionView:self.collectionView layout:self willEndDraggingItemAtIndexPath:currentIndexPath];
         }
 
-        self.selectedItemIndexPath = nil;
-        self.currentViewCenter = CGPointZero;
+        _selectedItemIndexPath = nil;
+        _currentViewCenter = CGPointZero;
 
         UICollectionViewLayoutAttributes *layoutAttributes = [self layoutAttributesForItemAtIndexPath:currentIndexPath];
 
-        __weak typeof(self) weakSelf = self;
-        [UIView
-         animateWithDuration:0.3
-         delay:0.0
-         options:UIViewAnimationOptionBeginFromCurrentState
-         animations:^{
-           __strong typeof(self) strongSelf = weakSelf;
-           if (strongSelf) {
-             strongSelf.currentView.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
-             strongSelf.currentView.center = layoutAttributes.center;
-           }
-         }
-         completion:^(BOOL finished) {
-           __strong typeof(self) strongSelf = weakSelf;
-           if (strongSelf) {
-             [strongSelf.currentView removeFromSuperview];
-             strongSelf.currentView = nil;
-             [strongSelf invalidateLayout];
-
-             if ([strongSelf.delegate respondsToSelector:@selector(collectionView:layout:didEndDraggingItemAtIndexPath:)]) {
-               [strongSelf.delegate collectionView:strongSelf.collectionView layout:strongSelf didEndDraggingItemAtIndexPath:currentIndexPath];
-             }
-           }
-         }];
+        [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+          _currentView.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
+          _currentView.center = layoutAttributes.center;
+        } completion:^(BOOL finished) {
+          [_currentView removeFromSuperview];
+          _currentView = nil;
+          [self invalidateLayout];
+          if ([self.delegate respondsToSelector:@selector(collectionView:layout:didEndDraggingItemAtIndexPath:)]) {
+            [self.delegate collectionView:self.collectionView layout:self didEndDraggingItemAtIndexPath:currentIndexPath];
+          }
+        }];
       }
     } break;
     default:
@@ -380,17 +321,17 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
   switch (gestureRecognizer.state) {
     case UIGestureRecognizerStateBegan:
     case UIGestureRecognizerStateChanged: {
-      self.panTranslationInCollectionView = [gestureRecognizer translationInView:self.collectionView];
-      CGPoint viewCenter = self.currentView.center = CGPointAdd(self.currentViewCenter, self.panTranslationInCollectionView);
+      _panTranslationInCollectionView = [gestureRecognizer translationInView:self.collectionView];
+      CGPoint viewCenter = _currentView.center = CGPointAdd(_currentViewCenter, _panTranslationInCollectionView);
 
       [self invalidateLayoutIfNecessary];
 
       switch (self.scrollDirection) {
         case UICollectionViewScrollDirectionVertical: {
-          if (viewCenter.y < (CGRectGetMinY(self.collectionView.bounds) + self.scrollingTriggerEdgeInsets.top)) {
+          if (viewCenter.y < (CGRectGetMinY(self.collectionView.bounds) + _scrollingTriggerEdgeInsets.top)) {
             [self setupScrollTimerInDirection:NBScrollingDirectionUp];
           } else {
-            if (viewCenter.y > (CGRectGetMaxY(self.collectionView.bounds) - self.scrollingTriggerEdgeInsets.bottom)) {
+            if (viewCenter.y > (CGRectGetMaxY(self.collectionView.bounds) - _scrollingTriggerEdgeInsets.bottom)) {
               [self setupScrollTimerInDirection:NBScrollingDirectionDown];
             } else {
               [self invalidatesScrollTimer];
@@ -398,10 +339,10 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
           }
         } break;
         case UICollectionViewScrollDirectionHorizontal: {
-          if (viewCenter.x < (CGRectGetMinX(self.collectionView.bounds) + self.scrollingTriggerEdgeInsets.left)) {
+          if (viewCenter.x < (CGRectGetMinX(self.collectionView.bounds) + _scrollingTriggerEdgeInsets.left)) {
             [self setupScrollTimerInDirection:NBScrollingDirectionLeft];
           } else {
-            if (viewCenter.x > (CGRectGetMaxX(self.collectionView.bounds) - self.scrollingTriggerEdgeInsets.right)) {
+            if (viewCenter.x > (CGRectGetMaxX(self.collectionView.bounds) - _scrollingTriggerEdgeInsets.right)) {
               [self setupScrollTimerInDirection:NBScrollingDirectionRight];
             } else {
               [self invalidatesScrollTimer];
@@ -439,12 +380,8 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
   UICollectionViewLayoutAttributes *layoutAttributes = [super layoutAttributesForItemAtIndexPath:indexPath];
 
-  switch (layoutAttributes.representedElementCategory) {
-    case UICollectionElementCategoryCell: {
-      [self applyLayoutAttributes:layoutAttributes];
-    } break;
-    default:
-      break;
+  if (layoutAttributes.representedElementCategory == UICollectionElementCategoryCell) {
+    [self applyLayoutAttributes:layoutAttributes];
   }
   return layoutAttributes;
 }
@@ -452,19 +389,19 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
 #pragma mark - UIGestureRecognizerDelegate
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-  if ([self.panGestureRecognizer isEqual:gestureRecognizer]) {
-    return (self.selectedItemIndexPath != nil);
+  if ([_panGestureRecognizer isEqual:gestureRecognizer]) {
+    return (_selectedItemIndexPath != nil);
   }
   return YES;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-  if ([self.longPressGestureRecognizer isEqual:gestureRecognizer]) {
-    return [self.panGestureRecognizer isEqual:otherGestureRecognizer];
+  if ([_longPressGestureRecognizer isEqual:gestureRecognizer]) {
+    return [_panGestureRecognizer isEqual:otherGestureRecognizer];
   }
 
-  if ([self.panGestureRecognizer isEqual:gestureRecognizer]) {
-    return [self.longPressGestureRecognizer isEqual:otherGestureRecognizer];
+  if ([_panGestureRecognizer isEqual:gestureRecognizer]) {
+    return [_longPressGestureRecognizer isEqual:otherGestureRecognizer];
   }
   return NO;
 }
@@ -484,8 +421,8 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
 #pragma mark - Notifications
 
 - (void)handleApplicationWillResignActive:(NSNotification *)notification {
-  self.panGestureRecognizer.enabled = NO;
-  self.panGestureRecognizer.enabled = YES;
+  _panGestureRecognizer.enabled = NO;
+  _panGestureRecognizer.enabled = YES;
 }
 
 @end

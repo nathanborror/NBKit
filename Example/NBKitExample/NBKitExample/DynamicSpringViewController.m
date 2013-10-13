@@ -9,7 +9,7 @@
 #import "DynamicSpringViewController.h"
 
 static const CGFloat kBallSize = 50.0;
-static const CGFloat kBallTopMargin = 50.0;
+static const CGFloat kBallTopMargin = 90.0;
 static const CGFloat kInitialVelocity = .2;
 static const CGFloat kInitialDamping = .6;
 
@@ -46,7 +46,7 @@ static const CGFloat kInitialDamping = .6;
   [self.view addSubview:ball];
 
   // Sliders
-  damping = [[UISlider alloc] initWithFrame:CGRectMake(20, CGRectGetHeight(self.view.frame)-120, CGRectGetWidth(self.view.bounds)-40, 50)];
+  damping = [[UISlider alloc] initWithFrame:CGRectMake(20, CGRectGetHeight(self.view.frame)-70, CGRectGetWidth(self.view.bounds)-40, 50)];
   [damping setMaximumValue:1];
   [damping setMinimumValue:0];
   [damping setValue:kInitialDamping animated:YES];
@@ -61,12 +61,12 @@ static const CGFloat kInitialDamping = .6;
   [self.view addSubview:velocity];
 
   // Labels
-  dampingValue = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 50)];
+  dampingValue = [[UILabel alloc] initWithFrame:CGRectMake(10, 60, 100, 50)];
   [dampingValue setText:[NSString stringWithFormat:@"D: %.2f", damping.value]];
   [dampingValue setTextColor:[UIColor grayColor]];
   [self.view addSubview:dampingValue];
 
-  velocityValue = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, 100, 50)];
+  velocityValue = [[UILabel alloc] initWithFrame:CGRectMake(10, 90, 100, 50)];
   [velocityValue setText:[NSString stringWithFormat:@"V: %.2f", velocity.value]];
   [velocityValue setTextColor:[UIColor grayColor]];
   [self.view addSubview:velocityValue];
@@ -85,7 +85,7 @@ static const CGFloat kInitialDamping = .6;
 - (void)bounce
 {
   [UIView animateWithDuration:.9 delay:0 usingSpringWithDamping:damping.value initialSpringVelocity:velocity.value options:UIViewAnimationOptionCurveLinear animations:^{
-    if (CGRectGetMaxY(ball.frame) > 100) {
+    if (CGRectGetMaxY(ball.frame) > 150) {
       [ball setFrame:CGRectOffset(ball.bounds, (CGRectGetWidth(self.view.bounds)/2)-(kBallSize/2), kBallTopMargin)];
     } else {
       [ball setFrame:CGRectOffset(ball.bounds, (CGRectGetWidth(self.view.bounds)/2)-(kBallSize/2), 300)];

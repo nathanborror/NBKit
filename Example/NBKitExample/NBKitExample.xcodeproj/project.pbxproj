@@ -27,6 +27,9 @@
 		D864953C17B873FB006E7E46 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D864953B17B873FB006E7E46 /* Images.xcassets */; };
 		D864954017B87474006E7E46 /* NBBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = D864953F17B87474006E7E46 /* NBBlock.m */; };
 		D864954317B87488006E7E46 /* NBGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D864954217B87488006E7E46 /* NBGridViewController.m */; };
+		D87F56D4180A224C00CBF8FD /* NBResizableCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F56D3180A224C00CBF8FD /* NBResizableCollectionViewLayout.m */; };
+		D87F56DA180A228500CBF8FD /* NBCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F56D9180A228500CBF8FD /* NBCollectionViewController.m */; };
+		D87F56DD180A241900CBF8FD /* NBCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F56DC180A241900CBF8FD /* NBCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +66,12 @@
 		D864953F17B87474006E7E46 /* NBBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBBlock.m; sourceTree = "<group>"; };
 		D864954117B87488006E7E46 /* NBGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBGridViewController.h; sourceTree = "<group>"; };
 		D864954217B87488006E7E46 /* NBGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBGridViewController.m; sourceTree = "<group>"; };
+		D87F56D2180A224C00CBF8FD /* NBResizableCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBResizableCollectionViewLayout.h; path = ../../Classes/NBResizableCollectionViewLayout.h; sourceTree = "<group>"; };
+		D87F56D3180A224C00CBF8FD /* NBResizableCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NBResizableCollectionViewLayout.m; path = ../../Classes/NBResizableCollectionViewLayout.m; sourceTree = "<group>"; };
+		D87F56D8180A228500CBF8FD /* NBCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBCollectionViewController.h; sourceTree = "<group>"; };
+		D87F56D9180A228500CBF8FD /* NBCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBCollectionViewController.m; sourceTree = "<group>"; };
+		D87F56DB180A241900CBF8FD /* NBCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBCell.h; sourceTree = "<group>"; };
+		D87F56DC180A241900CBF8FD /* NBCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +136,8 @@
 				D864953B17B873FB006E7E46 /* Images.xcassets */,
 				D864954117B87488006E7E46 /* NBGridViewController.h */,
 				D864954217B87488006E7E46 /* NBGridViewController.m */,
+				D87F56D8180A228500CBF8FD /* NBCollectionViewController.h */,
+				D87F56D9180A228500CBF8FD /* NBCollectionViewController.m */,
 			);
 			path = NBKitExample;
 			sourceTree = "<group>";
@@ -162,6 +173,8 @@
 				D84B9AE11755D69D0029D763 /* NBAnimationHelper.m */,
 				D84B9AE21755D69D0029D763 /* NBDirectionGestureRecognizer.h */,
 				D84B9AE31755D69D0029D763 /* NBDirectionGestureRecognizer.m */,
+				D87F56D2180A224C00CBF8FD /* NBResizableCollectionViewLayout.h */,
+				D87F56D3180A224C00CBF8FD /* NBResizableCollectionViewLayout.m */,
 			);
 			name = NBKit;
 			sourceTree = "<group>";
@@ -171,6 +184,8 @@
 			children = (
 				D864953E17B87474006E7E46 /* NBBlock.h */,
 				D864953F17B87474006E7E46 /* NBBlock.m */,
+				D87F56DB180A241900CBF8FD /* NBCell.h */,
+				D87F56DC180A241900CBF8FD /* NBCell.m */,
 			);
 			name = "UI Elements";
 			sourceTree = "<group>";
@@ -242,8 +257,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D87F56DA180A228500CBF8FD /* NBCollectionViewController.m in Sources */,
 				D84B9AC61755D5DD0029D763 /* main.m in Sources */,
 				D84B9ACA1755D5DD0029D763 /* NBAppDelegate.m in Sources */,
+				D87F56D4180A224C00CBF8FD /* NBResizableCollectionViewLayout.m in Sources */,
 				D84B9AD31755D5DD0029D763 /* NBViewController.m in Sources */,
 				D864954017B87474006E7E46 /* NBBlock.m in Sources */,
 				D84B9AE41755D69D0029D763 /* NBAnimation.m in Sources */,
@@ -251,6 +268,7 @@
 				D84B9AE51755D69D0029D763 /* NBAnimationHelper.m in Sources */,
 				D84B9AE61755D69D0029D763 /* NBDirectionGestureRecognizer.m in Sources */,
 				D84B9AEB1755D90D0029D763 /* NBCardTossViewController.m in Sources */,
+				D87F56DD180A241900CBF8FD /* NBCell.m in Sources */,
 				D84B9AEE1755D9F20029D763 /* NBBounceViewController.m in Sources */,
 				D81A8EF2179F33C300E2845A /* DynamicSpringViewController.m in Sources */,
 			);

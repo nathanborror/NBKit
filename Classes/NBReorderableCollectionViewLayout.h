@@ -1,5 +1,5 @@
 //
-//  NBResizableCollectionViewLayout.h
+//  NBReorderableCollectionViewLayout.h
 //
 //  Created by Stan Chang Khin Boon on 1/10/12.
 //  Modified by Nathan Borror on 10/12/13.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NBResizableCollectionViewLayout : UICollectionViewFlowLayout <UIGestureRecognizerDelegate>
+@interface NBReorderableCollectionViewLayout : UICollectionViewFlowLayout <UIGestureRecognizerDelegate>
 
 @property (assign, nonatomic) CGFloat scrollingSpeed;
 @property (assign, nonatomic) UIEdgeInsets scrollingTriggerEdgeInsets;
@@ -17,7 +17,7 @@
 
 @end
 
-@protocol NBResizableCollectionViewDataSource <UICollectionViewDataSource>
+@protocol NBReorderableCollectionViewDataSource <UICollectionViewDataSource>
 
 @optional
 
@@ -29,7 +29,7 @@
 
 @end
 
-@protocol NBResizableCollectionViewDelegateFlowLayout <UICollectionViewDelegateFlowLayout>
+@protocol NBReorderableCollectionViewDelegateFlowLayout <UICollectionViewDelegateFlowLayout>
 
 @optional
 

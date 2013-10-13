@@ -1,12 +1,12 @@
 //
-//  NBResizableCollectionViewLayout.m
+//  NBReorderableCollectionViewLayout.m
 //
 //  Created by Stan Chang Khin Boon on 1/10/12.
 //  Modified by Nathan Borror on 10/12/13.
 //  Copyright (c) 2013 Nathan Borror. All rights reserved.
 //
 
-#import "NBResizableCollectionViewLayout.h"
+#import "NBReorderableCollectionViewLayout.h"
 #import <QuartzCore/QuartzCore.h>
 #import <objc/runtime.h>
 
@@ -49,14 +49,14 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
 @end
 
 
-@interface UICollectionViewCell (ResizableCollectionViewLayout)
+@interface UICollectionViewCell (ReorderableCollectionViewLayout)
 
 - (UIImage *)rasterizedImage;
 
 @end
 
 
-@implementation UICollectionViewCell (ResizableCollectionViewLayout)
+@implementation UICollectionViewCell (ReorderableCollectionViewLayout)
 
 - (UIImage *)rasterizedImage {
   UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.isOpaque, 0.0f);
@@ -69,7 +69,7 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
 @end
 
 
-@interface NBResizableCollectionViewLayout ()
+@interface NBReorderableCollectionViewLayout ()
 
 @property (strong, nonatomic) NSIndexPath *selectedItemIndexPath;
 @property (strong, nonatomic) UIView *currentView;
@@ -77,12 +77,12 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
 @property (assign, nonatomic) CGPoint panTranslationInCollectionView;
 @property (strong, nonatomic) CADisplayLink *displayLink;
 
-@property (assign, nonatomic, readonly) id<NBResizableCollectionViewDataSource> dataSource;
-@property (assign, nonatomic, readonly) id<NBResizableCollectionViewDelegateFlowLayout> delegate;
+@property (assign, nonatomic, readonly) id<NBReorderableCollectionViewDataSource> dataSource;
+@property (assign, nonatomic, readonly) id<NBReorderableCollectionViewDelegateFlowLayout> delegate;
 
 @end
 
-@implementation NBResizableCollectionViewLayout
+@implementation NBReorderableCollectionViewLayout
 
 - (void)setDefaults {
   _scrollingSpeed = 300.0f;
@@ -142,12 +142,12 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
   }
 }
 
-- (id<NBResizableCollectionViewDataSource>)dataSource {
-  return (id<NBResizableCollectionViewDataSource>)self.collectionView.dataSource;
+- (id<NBReorderableCollectionViewDataSource>)dataSource {
+  return (id<NBReorderableCollectionViewDataSource>)self.collectionView.dataSource;
 }
 
-- (id<NBResizableCollectionViewDelegateFlowLayout>)delegate {
-  return (id<NBResizableCollectionViewDelegateFlowLayout>)self.collectionView.delegate;
+- (id<NBReorderableCollectionViewDelegateFlowLayout>)delegate {
+  return (id<NBReorderableCollectionViewDelegateFlowLayout>)self.collectionView.delegate;
 }
 
 - (void)invalidateLayoutIfNecessary {

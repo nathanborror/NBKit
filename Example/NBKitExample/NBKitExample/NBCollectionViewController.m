@@ -7,7 +7,7 @@
 //
 
 #import "NBCollectionViewController.h"
-#import "NBResizableCollectionViewLayout.h"
+#import "NBReorderableCollectionViewLayout.h"
 #import "NBCell.h"
 
 static const NSInteger kSectionCount = 5;
@@ -39,7 +39,7 @@ static const NSInteger kItemCount = 20;
     [_sections addObject:data];
   }
 
-  NBResizableCollectionViewLayout *layout = [[NBResizableCollectionViewLayout alloc] init];
+  NBReorderableCollectionViewLayout *layout = [[NBReorderableCollectionViewLayout alloc] init];
   [layout setMinimumLineSpacing:1];
   [layout setMinimumInteritemSpacing:1];
   [layout setItemSize:CGSizeMake(106, 106)];

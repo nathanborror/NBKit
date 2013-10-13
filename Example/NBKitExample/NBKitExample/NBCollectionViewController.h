@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "NBResizableCollectionViewLayout.h"
+#import "NBReorderableCollectionViewLayout.h"
 
-@interface NBCollectionViewController : UIViewController <UICollectionViewDelegate, NBResizableCollectionViewDataSource>
+@interface NBCollectionViewController : UIViewController <UICollectionViewDelegate, NBReorderableCollectionViewDataSource>
 
 @end

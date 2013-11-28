@@ -10,6 +10,7 @@
 
 @interface NBJSON : NSObject
 
-+ (NSArray *)fetchLocal:(NSString *)resource;
++ (NSArray *)fetchLocalIntoList:(NSString *)resource;
++ (NSDictionary *)fetchLocal:(NSString *)resource;
 
 @end

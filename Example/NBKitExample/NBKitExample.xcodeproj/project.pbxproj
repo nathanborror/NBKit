@@ -30,6 +30,10 @@
 		D87F56D4180A224C00CBF8FD /* NBReorderableCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F56D3180A224C00CBF8FD /* NBReorderableCollectionViewLayout.m */; };
 		D87F56DA180A228500CBF8FD /* NBCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F56D9180A228500CBF8FD /* NBCollectionViewController.m */; };
 		D87F56DD180A241900CBF8FD /* NBCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D87F56DC180A241900CBF8FD /* NBCell.m */; };
+		D8B244B11847BA450015961B /* NBFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B244B01847BA450015961B /* NBFeedViewController.m */; };
+		D8B244B41847BAB40015961B /* NBStoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B244B31847BAB40015961B /* NBStoryCell.m */; };
+		D8B244B81847BB0F0015961B /* NBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B244B71847BB0F0015961B /* NBJSON.m */; };
+		D8B244BB1847BD870015961B /* feedData.json in Resources */ = {isa = PBXBuildFile; fileRef = D8B244BA1847BD870015961B /* feedData.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +76,13 @@
 		D87F56D9180A228500CBF8FD /* NBCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBCollectionViewController.m; sourceTree = "<group>"; };
 		D87F56DB180A241900CBF8FD /* NBCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBCell.h; sourceTree = "<group>"; };
 		D87F56DC180A241900CBF8FD /* NBCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBCell.m; sourceTree = "<group>"; };
+		D8B244AF1847BA450015961B /* NBFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBFeedViewController.h; sourceTree = "<group>"; };
+		D8B244B01847BA450015961B /* NBFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBFeedViewController.m; sourceTree = "<group>"; };
+		D8B244B21847BAB40015961B /* NBStoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBStoryCell.h; sourceTree = "<group>"; };
+		D8B244B31847BAB40015961B /* NBStoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBStoryCell.m; sourceTree = "<group>"; };
+		D8B244B61847BB0F0015961B /* NBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBJSON.h; path = ../../../Classes/NBJSON.h; sourceTree = "<group>"; };
+		D8B244B71847BB0F0015961B /* NBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NBJSON.m; path = ../../../Classes/NBJSON.m; sourceTree = "<group>"; };
+		D8B244BA1847BD870015961B /* feedData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = feedData.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +132,7 @@
 		D84B9ABF1755D5DD0029D763 /* NBKitExample */ = {
 			isa = PBXGroup;
 			children = (
+				D8B244B51847BAFD0015961B /* NBKit */,
 				D864953D17B87466006E7E46 /* UI Elements */,
 				D84B9AC81755D5DD0029D763 /* NBAppDelegate.h */,
 				D84B9AC91755D5DD0029D763 /* NBAppDelegate.m */,
@@ -136,6 +148,8 @@
 				D864954217B87488006E7E46 /* NBGridViewController.m */,
 				D87F56D8180A228500CBF8FD /* NBCollectionViewController.h */,
 				D87F56D9180A228500CBF8FD /* NBCollectionViewController.m */,
+				D8B244AF1847BA450015961B /* NBFeedViewController.h */,
+				D8B244B01847BA450015961B /* NBFeedViewController.m */,
 				D84B9AC01755D5DD0029D763 /* Supporting Files */,
 				D864953B17B873FB006E7E46 /* Images.xcassets */,
 			);
@@ -145,6 +159,7 @@
 		D84B9AC01755D5DD0029D763 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D8B244BA1847BD870015961B /* feedData.json */,
 				D84B9AC11755D5DD0029D763 /* NBKitExample-Info.plist */,
 				D84B9AC21755D5DD0029D763 /* InfoPlist.strings */,
 				D84B9AC51755D5DD0029D763 /* main.m */,
@@ -186,8 +201,19 @@
 				D864953F17B87474006E7E46 /* NBBlock.m */,
 				D87F56DB180A241900CBF8FD /* NBCell.h */,
 				D87F56DC180A241900CBF8FD /* NBCell.m */,
+				D8B244B21847BAB40015961B /* NBStoryCell.h */,
+				D8B244B31847BAB40015961B /* NBStoryCell.m */,
 			);
 			name = "UI Elements";
+			sourceTree = "<group>";
+		};
+		D8B244B51847BAFD0015961B /* NBKit */ = {
+			isa = PBXGroup;
+			children = (
+				D8B244B61847BB0F0015961B /* NBJSON.h */,
+				D8B244B71847BB0F0015961B /* NBJSON.m */,
+			);
+			name = NBKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,6 +273,7 @@
 				D84B9ACC1755D5DD0029D763 /* Default.png in Resources */,
 				D84B9ACE1755D5DD0029D763 /* Default@2x.png in Resources */,
 				D84B9AD01755D5DD0029D763 /* Default-568h@2x.png in Resources */,
+				D8B244BB1847BD870015961B /* feedData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +286,7 @@
 			files = (
 				D87F56DA180A228500CBF8FD /* NBCollectionViewController.m in Sources */,
 				D84B9AC61755D5DD0029D763 /* main.m in Sources */,
+				D8B244B81847BB0F0015961B /* NBJSON.m in Sources */,
 				D84B9ACA1755D5DD0029D763 /* NBAppDelegate.m in Sources */,
 				D87F56D4180A224C00CBF8FD /* NBReorderableCollectionViewLayout.m in Sources */,
 				D84B9AD31755D5DD0029D763 /* NBViewController.m in Sources */,
@@ -266,7 +294,9 @@
 				D84B9AE41755D69D0029D763 /* NBAnimation.m in Sources */,
 				D864954317B87488006E7E46 /* NBGridViewController.m in Sources */,
 				D84B9AE51755D69D0029D763 /* NBAnimationHelper.m in Sources */,
+				D8B244B41847BAB40015961B /* NBStoryCell.m in Sources */,
 				D84B9AE61755D69D0029D763 /* NBDirectionGestureRecognizer.m in Sources */,
+				D8B244B11847BA450015961B /* NBFeedViewController.m in Sources */,
 				D84B9AEB1755D90D0029D763 /* NBCardTossViewController.m in Sources */,
 				D87F56DD180A241900CBF8FD /* NBCell.m in Sources */,
 				D84B9AEE1755D9F20029D763 /* NBBounceViewController.m in Sources */,

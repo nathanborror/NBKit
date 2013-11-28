@@ -12,6 +12,7 @@
 #import "DynamicSpringViewController.h"
 #import "NBGridViewController.h"
 #import "NBCollectionViewController.h"
+#import "NBFeedViewController.h"
 
 @interface NBViewController ()
 {
@@ -33,7 +34,8 @@
       [[NBCardTossViewController alloc] init],
       [[DynamicSpringViewController alloc] init],
       [[NBGridViewController alloc] init],
-      [[NBCollectionViewController alloc] init]
+      [[NBCollectionViewController alloc] init],
+      [[NBFeedViewController alloc] init]
     ];
 
     tableview = [[UITableView alloc] initWithFrame:self.view.bounds];

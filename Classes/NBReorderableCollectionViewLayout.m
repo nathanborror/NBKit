@@ -162,7 +162,6 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
 - (void)setupScrollTimerInDirection:(NBScrollingDirection)direction {
   if (!_displayLink.paused) {
     NBScrollingDirection oldDirection = [_displayLink.userInfo[SCROLL_DIRECTION_KEYPATH] integerValue];
-
     if (direction == oldDirection) {
       return;
     }
@@ -192,39 +191,31 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
     case NBScrollingDirectionUp: {
       distance = -distance;
       CGFloat minY = 0.0f;
-
       if ((contentOffset.y + distance) <= minY) {
         distance = -contentOffset.y;
       }
-
       translation = CGPointMake(0.0f, distance);
     } break;
     case NBScrollingDirectionDown: {
       CGFloat maxY = MAX(contentSize.height, frameSize.height) - frameSize.height;
-
       if ((contentOffset.y + distance) >= maxY) {
         distance = maxY - contentOffset.y;
       }
-
       translation = CGPointMake(0.0f, distance);
     } break;
     case NBScrollingDirectionLeft: {
       distance = -distance;
       CGFloat minX = 0.0f;
-
       if ((contentOffset.x + distance) <= minX) {
         distance = -contentOffset.x;
       }
-
       translation = CGPointMake(distance, 0.0f);
     } break;
     case NBScrollingDirectionRight: {
       CGFloat maxX = MAX(contentSize.width, frameSize.width) - frameSize.width;
-
       if ((contentOffset.x + distance) >= maxX) {
         distance = maxX - contentOffset.x;
       }
-
       translation = CGPointMake(distance, 0.0f);
     } break;
     default:
@@ -235,7 +226,6 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
   _currentView.center = CGPointAdd(_currentViewCenter, _panTranslationInCollectionView);
   self.collectionView.contentOffset = CGPointAdd(contentOffset, translation);
 }
-
 
 - (void)handleLongPressGesture:(UILongPressGestureRecognizer *)gestureRecognizer {
   switch(gestureRecognizer.state) {
@@ -272,10 +262,11 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
 
       _currentViewCenter = _currentView.center;
 
-      [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-        _currentView.transform = CGAffineTransformMakeScale(1.1f, 1.1f);
-        highlightedImageView.alpha = 0.0f;
-        imageView.alpha = 1.0f;
+      highlightedImageView.alpha = 0;
+      imageView.alpha = .95;
+
+      [UIView animateWithDuration:.3 delay:0 usingSpringWithDamping:.4 initialSpringVelocity:.1 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        _currentView.transform = CGAffineTransformMakeScale(1.1, 1.1);
       } completion:^(BOOL finished) {
         [highlightedImageView removeFromSuperview];
         if ([self.delegate respondsToSelector:@selector(collectionView:layout:didBeginDraggingItemAtIndexPath:)]) {
@@ -299,8 +290,8 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
 
         UICollectionViewLayoutAttributes *layoutAttributes = [self layoutAttributesForItemAtIndexPath:currentIndexPath];
 
-        [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-          _currentView.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
+        [UIView animateWithDuration:.7 delay:0 usingSpringWithDamping:.5 initialSpringVelocity:.2 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+          _currentView.transform = CGAffineTransformMakeScale(1, 1);
           _currentView.center = layoutAttributes.center;
         } completion:^(BOOL finished) {
           [_currentView removeFromSuperview];
@@ -366,12 +357,8 @@ typedef NS_ENUM(NSInteger, NBScrollingDirection) {
   NSArray *layoutAttributesForElementsInRect = [super layoutAttributesForElementsInRect:rect];
 
   for (UICollectionViewLayoutAttributes *layoutAttributes in layoutAttributesForElementsInRect) {
-    switch (layoutAttributes.representedElementCategory) {
-      case UICollectionElementCategoryCell: {
-        [self applyLayoutAttributes:layoutAttributes];
-      } break;
-      default:
-        break;
+    if (layoutAttributes.representedElementCategory == UICollectionElementCategoryCell) {
+      [self applyLayoutAttributes:layoutAttributes];
     }
   }
   return layoutAttributesForElementsInRect;

@@ -54,7 +54,7 @@ class Request {
         :param: completion The completion handler to call when the load request
             is complete.
      */
-    init(method: RequestsMethod, url: String, body: String?, headers: [String: String]?, completion: ((NSData!, NSURLResponse!, NSError!) -> Void)?) {
+    init(method: RequestsMethod, url: String, body: String?, headers: [String: String]?, completion: ((NSData?, NSURLResponse?, NSError?) -> Void)?) {
         var request = NSMutableURLRequest(URL: NSURL(string: url))
         request.HTTPMethod = method.toRaw()
 
@@ -69,7 +69,7 @@ class Request {
         }
 
         let session = NSURLSession.sharedSession()
-        session.dataTaskWithRequest(request, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
+        session.dataTaskWithRequest(request) { (data, response, error) -> Void in
             if error != nil {
                 println("[Request Error]: \(error.localizedDescription)")
                 return
@@ -80,26 +80,26 @@ class Request {
                     block(data, response, error)
                 }
             })
-        }).resume()
+        }.resume()
     }
 
-    class func Get(url: String, completion: (NSData!, NSURLResponse!, NSError!) -> Void) {
+    class func Get(url: String, completion: (NSData?, NSURLResponse?, NSError?) -> Void) {
         Request(method: .GET, url: url, body: nil, headers: nil, completion: completion)
     }
 
-    class func Post(url: String, body: String, headers: [String: String], completion: ((NSData!, NSURLResponse!, NSError!) -> Void)?) {
+    class func Post(url: String, body: String, headers: [String: String], completion: ((NSData?, NSURLResponse?, NSError?) -> Void)?) {
         Request(method: .POST, url: url, body: body, headers: headers, completion: completion)
     }
 
-    class func Put(url: String, body: String, headers: [String: String], completion: ((NSData!, NSURLResponse!, NSError!) -> Void)?) {
+    class func Put(url: String, body: String, headers: [String: String], completion: ((NSData?, NSURLResponse?, NSError?) -> Void)?) {
         Request(method: .PUT, url: url, body: body, headers: headers, completion: completion)
     }
 
-    class func Delete(url: String, body: String, headers: [String: String], completion: ((NSData!, NSURLResponse!, NSError!) -> Void)?) {
+    class func Delete(url: String, body: String, headers: [String: String], completion: ((NSData?, NSURLResponse?, NSError?) -> Void)?) {
         Request(method: .DELETE, url: url, body: body, headers: headers, completion: completion)
     }
 
-    class func Subscribe(url: String, headers: [String: String], completion: ((NSData!, NSURLResponse!, NSError!) -> Void)?) {
+    class func Subscribe(url: String, headers: [String: String], completion: ((NSData?, NSURLResponse?, NSError?) -> Void)?) {
         Request(method: .SUBSCRIBE, url: url, body: nil, headers: headers, completion: completion)
     }
 }

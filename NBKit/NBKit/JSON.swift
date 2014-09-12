@@ -9,7 +9,7 @@
 import Foundation
 
 /// Helper methods for parsing JSON using NSJSONSerialization.
-class JSON {
+public class JSON {
 
     /**
         Returns a string of json output.
@@ -17,7 +17,7 @@ class JSON {
         :param: obj An object to be converted into a JSON string.
         :returns: A String representing a JSON object.
     */
-    class func stringify(obj: AnyObject) -> String {
+    public class func stringify(obj: AnyObject) -> String {
         var err: NSError?
         let data = NSJSONSerialization.dataWithJSONObject(obj, options: NSJSONWritingOptions(0), error: &err)
         if err != nil {
@@ -34,7 +34,7 @@ class JSON {
         :param: data An NSData object to be parsed.
         :returns: A list of generic objects representing the JSON string.
     */
-    class func parseArray(data: NSData) -> [AnyObject]? {
+    public class func parseArray(data: NSData) -> [AnyObject]? {
         if data.length > 0 {
             var err: NSError?
             var obj = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as [AnyObject]
@@ -50,7 +50,7 @@ class JSON {
         :param: data An NSData object to be parsed.
         :returns: An optional dictionary of string/generic object pairs.
     */
-    class func parseDictionary(data: NSData) -> [String: AnyObject]? {
+    public class func parseDictionary(data: NSData) -> [String: AnyObject]? {
         if data.length > 0 {
             var err: NSError?
             let obj = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &err) as [String: AnyObject]

@@ -9,12 +9,12 @@
 import UIKit
 
 // A basic method for applying layout constraints to views.
-class Layout {
+public class Layout {
 
-    let views: [String:UIView]
-    let superview: UIView
+    public let views: [String:UIView]
+    public let superview: UIView
 
-    var constraints = [AnyObject]()
+    public var constraints = [AnyObject]()
 
     /**
         A Layout applies constraints to views using Auto Layout's visual
@@ -25,7 +25,7 @@ class Layout {
         :param: views The UIViews involved in the constraints.
         :param: superview The UIView where constraints will be applied.
     */
-    init(formats:[String], options:NSLayoutFormatOptions, metrics:[String: AnyObject]?, views:[String:UIView], superview:UIView) {
+    public init(formats:[String], options:NSLayoutFormatOptions, metrics:[String: AnyObject]?, views:[String:UIView], superview:UIView) {
         self.views = views
         self.superview = superview
 
@@ -40,18 +40,11 @@ class Layout {
         :param: constraints Constraints defined by auto-layout's visual
             formatting language to be applied to the superview.
     */
-    func addConstraint(format:String, options:NSLayoutFormatOptions, metrics:[String: AnyObject]?) {
+    public func addConstraint(format:String, options:NSLayoutFormatOptions, metrics:[String: AnyObject]?) {
         let constraint = NSLayoutConstraint.constraintsWithVisualFormat(format, options: options, metrics: metrics, views: self.views)
         self.superview.addConstraints(constraint)
 
         self.constraints += constraint
-    }
-
-    /**
-        Applies a new constraint by removing an existing constraint.
-    */
-    func changeConstraint() {
-
     }
 
 }

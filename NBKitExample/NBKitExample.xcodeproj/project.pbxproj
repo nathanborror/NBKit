@@ -10,15 +10,11 @@
 		D818494619BB7A1200092F37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818494519BB7A1200092F37 /* AppDelegate.swift */; };
 		D818494819BB7A1200092F37 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818494719BB7A1200092F37 /* ViewController.swift */; };
 		D818494D19BB7A1200092F37 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D818494C19BB7A1200092F37 /* Images.xcassets */; };
-		D818495919BB7A1200092F37 /* NBKitExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818495819BB7A1200092F37 /* NBKitExampleTests.swift */; };
-		D81A0EDD19BB7AE500D8E089 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A0EDC19BB7AE500D8E089 /* Request.swift */; };
-		D81A0EF519BB857A00D8E089 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A0EF219BB857A00D8E089 /* JSON.swift */; };
-		D81A0EF619BB857A00D8E089 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A0EF319BB857A00D8E089 /* Layout.swift */; };
-		D81A0EF719BB857A00D8E089 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81A0EF419BB857A00D8E089 /* Parser.swift */; };
+		D8F7D95019C275DA0037BDF2 /* NBKitExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818495819BB7A1200092F37 /* NBKitExampleTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D818495319BB7A1200092F37 /* PBXContainerItemProxy */ = {
+		D8EFF1D819C26B4B00713A85 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D818493819BB7A1200092F37 /* Project object */;
 			proxyType = 1;
@@ -36,10 +32,6 @@
 		D818495219BB7A1200092F37 /* NBKitExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NBKitExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D818495719BB7A1200092F37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D818495819BB7A1200092F37 /* NBKitExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NBKitExampleTests.swift; sourceTree = "<group>"; };
-		D81A0EDC19BB7AE500D8E089 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Request.swift; path = ../NBKit/Request.swift; sourceTree = "<group>"; };
-		D81A0EF219BB857A00D8E089 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSON.swift; path = ../NBKit/JSON.swift; sourceTree = "<group>"; };
-		D81A0EF319BB857A00D8E089 /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Layout.swift; path = ../NBKit/Layout.swift; sourceTree = "<group>"; };
-		D81A0EF419BB857A00D8E089 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Parser.swift; path = ../NBKit/Parser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +55,6 @@
 		D818493719BB7A1200092F37 = {
 			isa = PBXGroup;
 			children = (
-				D81A0ED719BB7A5D00D8E089 /* NBKit */,
 				D818494219BB7A1200092F37 /* NBKitExample */,
 				D818495519BB7A1200092F37 /* NBKitExampleTests */,
 				D818494119BB7A1200092F37 /* Products */,
@@ -115,15 +106,9 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		D81A0ED719BB7A5D00D8E089 /* NBKit */ = {
 			isa = PBXGroup;
 			children = (
-				D81A0EF219BB857A00D8E089 /* JSON.swift */,
-				D81A0EF319BB857A00D8E089 /* Layout.swift */,
-				D81A0EF419BB857A00D8E089 /* Parser.swift */,
-				D81A0EDC19BB7AE500D8E089 /* Request.swift */,
 			);
-			name = NBKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,7 +142,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				D818495419BB7A1200092F37 /* PBXTargetDependency */,
+				D8EFF1D919C26B4B00713A85 /* PBXTargetDependency */,
 			);
 			name = NBKitExampleTests;
 			productName = NBKitExampleTests;
@@ -225,11 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D818494819BB7A1200092F37 /* ViewController.swift in Sources */,
-				D81A0EDD19BB7AE500D8E089 /* Request.swift in Sources */,
-				D81A0EF719BB857A00D8E089 /* Parser.swift in Sources */,
-				D81A0EF619BB857A00D8E089 /* Layout.swift in Sources */,
 				D818494619BB7A1200092F37 /* AppDelegate.swift in Sources */,
-				D81A0EF519BB857A00D8E089 /* JSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,17 +218,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D818495919BB7A1200092F37 /* NBKitExampleTests.swift in Sources */,
+				D8F7D95019C275DA0037BDF2 /* NBKitExampleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		D818495419BB7A1200092F37 /* PBXTargetDependency */ = {
+		D8EFF1D919C26B4B00713A85 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D818493F19BB7A1200092F37 /* NBKitExample */;
-			targetProxy = D818495319BB7A1200092F37 /* PBXContainerItemProxy */;
+			targetProxy = D8EFF1D819C26B4B00713A85 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

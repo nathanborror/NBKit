@@ -10,23 +10,23 @@ import Foundation
 
 public class Log {
 
-    public class func error(msg: String) {
+    public class func error(msg: AnyObject?) {
         println("<Error>: \(msg)")
     }
 
-    public class func warn(msg: String) {
+    public class func warn(msg: AnyObject?) {
         println("<Warning>: \(msg)")
     }
 
-    public class func info(msg: String) {
+    public class func info(msg: AnyObject?) {
         println("<Info>: \(msg)")
     }
 
-    public class func debug(msg: String) {
+    public class func debug(msg: AnyObject?) {
         println("<Debug>: \(msg)")
     }
 
-    public class func verbose(msg: String) {
+    public class func verbose(msg: AnyObject?) {
         println("<Verbose>: \(msg)")
     }
 

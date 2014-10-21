@@ -19,7 +19,7 @@ class Regex {
         self.pattern = pattern
 
         var error:NSError?
-        self.expression = NSRegularExpression(pattern: self.pattern, options: options, error: &error)
+        self.expression = NSRegularExpression(pattern: self.pattern, options: options, error: &error)!
     }
 
     convenience init(pattern:String) {

@@ -21,9 +21,9 @@ import Foundation
     - PUT:
     - TRACE:
     - SUBSCRIBE: Used to request current state and state updates from a
-    remote node. (Session Initiation Protocol RFC 6665)
+        remote node. (Session Initiation Protocol RFC 6665)
     - NOTIFY: Sent to inform subscribers of changes in state to which the
-    subscriber has a subscription.
+        subscriber has a subscription.
 */
 public enum RequestsMethod: String {
     case CONNECT = "CONNECT"
@@ -41,6 +41,8 @@ public enum RequestsMethod: String {
 
 /// A basic HTTP request handler that wraps NSURLSession.
 public class Request {
+    public typealias CompletionHandler = (NSData?, NSURLResponse?, NSError?) -> Void
+
     /**
         A Request makes a simple HTTP request and uses a completion closure to
         return the requests optional NSData, NSURLResponse, and NSError.
@@ -52,9 +54,9 @@ public class Request {
         :param: completion The completion handler to call when the load request
             is complete.
      */
-    public init(method: RequestsMethod, url: String, body: String?, headers: [String: String]?, completion: ((NSData?, NSURLResponse?, NSError?) -> Void)?) {
-        var request = NSMutableURLRequest(URL: NSURL(string: url))
-        request.HTTPMethod = method.toRaw()
+    public init(method: RequestsMethod, url: String, body: String?, headers: [String:String]?, completion: CompletionHandler?) {
+        var request = NSMutableURLRequest(URL: NSURL(string: url)!)
+        request.HTTPMethod = method.rawValue
 
         if body != nil {
             request.HTTPBody = body!.dataUsingEncoding(NSUTF8StringEncoding)
@@ -81,23 +83,23 @@ public class Request {
         }.resume()
     }
 
-    public class func Get(url: String, completion: (NSData?, NSURLResponse?, NSError?) -> Void) {
+    public class func Get(url: String, completion: CompletionHandler?) {
         Request(method: .GET, url: url, body: nil, headers: nil, completion: completion)
     }
 
-    public class func Post(url: String, body: String, headers: [String: String], completion: ((NSData?, NSURLResponse?, NSError?) -> Void)?) {
+    public class func Post(url: String, body: String, headers: [String:String]?, completion: CompletionHandler?) {
         Request(method: .POST, url: url, body: body, headers: headers, completion: completion)
     }
 
-    public class func Put(url: String, body: String, headers: [String: String], completion: ((NSData?, NSURLResponse?, NSError?) -> Void)?) {
+    public class func Put(url: String, body: String, headers: [String:String]?, completion: CompletionHandler?) {
         Request(method: .PUT, url: url, body: body, headers: headers, completion: completion)
     }
 
-    public class func Delete(url: String, body: String, headers: [String: String], completion: ((NSData?, NSURLResponse?, NSError?) -> Void)?) {
+    public class func Delete(url: String, body: String, headers: [String:String]?, completion: CompletionHandler?) {
         Request(method: .DELETE, url: url, body: body, headers: headers, completion: completion)
     }
 
-    public class func Subscribe(url: String, headers: [String: String], completion: ((NSData?, NSURLResponse?, NSError?) -> Void)?) {
+    public class func Subscribe(url: String, headers: [String:String]?, completion: CompletionHandler?) {
         Request(method: .SUBSCRIBE, url: url, body: nil, headers: headers, completion: completion)
     }
 }

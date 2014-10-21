@@ -24,7 +24,7 @@ public class JSON {
             return ""
         }
 
-        return NSString(data: data!, encoding: NSUTF8StringEncoding)
+        return NSString(data: data!, encoding: NSUTF8StringEncoding)!
     }
 
     /**

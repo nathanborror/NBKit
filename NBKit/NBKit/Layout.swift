@@ -16,14 +16,14 @@ public class Layout {
     public var constraints = [AnyObject]()
 
     /**
-    A Layout applies constraints to views using Auto Layout's visual
-    formatting language.
+        A Layout applies constraints to views using Auto Layout's visual
+        formatting language.
 
-    :param: views The UIViews involved in the constraints.
-    :param: with Constraints defined by auto-layout's visual
-    formatting language to be applied to the superview.
-    :param: metrics Optional metric values.
-    :param: options Formatting options using NSLayoutFormatOptions.
+        :param: views The UIViews involved in the constraints.
+        :param: with Constraints defined by auto-layout's visual
+            formatting language to be applied to the superview.
+        :param: metrics Optional metric values.
+        :param: options Formatting options using NSLayoutFormatOptions.
     */
     public init(views:[String:AnyObject], with:[String], metrics:[String:Double]? = nil, options:NSLayoutFormatOptions = NSLayoutFormatOptions(0)) {
         self.views = views
@@ -41,12 +41,12 @@ public class Layout {
     }
 
     /**
-    A method for adding more constraints to the superview.
+        A method for adding more constraints to the superview.
 
-    :param: with Constraints defined by auto-layout's visual
-    formatting language to be applied to the superview.
-    :param: metrics Optional metric values.
-    :param: options Formatting options using NSLayoutFormatOptions.
+        :param: with Constraints defined by auto-layout's visual
+            formatting language to be applied to the superview.
+        :param: metrics Optional metric values.
+        :param: options Formatting options using NSLayoutFormatOptions.
     */
     func addConstraint(with:String, metrics:[String: AnyObject]? = nil, options: NSLayoutFormatOptions = NSLayoutFormatOptions(0)) {
         let constraint = NSLayoutConstraint.constraintsWithVisualFormat(with, options: options, metrics: metrics, views: self.views)
@@ -58,12 +58,12 @@ public class Layout {
     }
 
     /**
-    A method for adding constraints to a superview.
+        A method for adding constraints to a superview.
 
-    :param: with Constraints defined by auto-layout's visual
-    formatting language to be applied to the superview.
-    :param: options Formatting options using NSLayoutFormatOptions.
-    :param: metrics Optional metric values.
+        :param: with Constraints defined by auto-layout's visual
+            formatting language to be applied to the superview.
+        :param: options Formatting options using NSLayoutFormatOptions.
+        :param: metrics Optional metric values.
     */
     func addConstraints(with:[String], metrics:[String: AnyObject]? = nil, options: NSLayoutFormatOptions = NSLayoutFormatOptions(0)) {
         for format in with {

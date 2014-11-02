@@ -25,7 +25,7 @@ public class Layout {
         :param: metrics Optional metric values.
         :param: options Formatting options using NSLayoutFormatOptions.
     */
-    public init(views:[String:AnyObject], with:[String], metrics:[String:Double]? = nil, options:NSLayoutFormatOptions = NSLayoutFormatOptions(0)) {
+    public init(_ views:[String:AnyObject], with:[String], metrics:[String:Double]? = nil, options:NSLayoutFormatOptions = NSLayoutFormatOptions(0)) {
         self.views = views
 
         for (key,view) in self.views {
@@ -69,6 +69,30 @@ public class Layout {
         for format in with {
             self.addConstraint(format, metrics: metrics, options: options)
         }
+    }
+
+    // MARK: Experimental
+
+    /**
+        A convenience method for when you want a view to maximize the space
+        afforded by its superview.
+
+        :param: view The view you want to fill its superview.
+    */
+    public class func max(obj:AnyObject) -> Layout {
+        let layout = Layout(["obj": obj], with: [
+            "H:|[obj]|",
+            "V:|[obj]|",
+        ])
+        return layout
+    }
+
+    /**
+        A convenience method that returns the last constraint added to a
+        superview.
+    */
+    public func last() -> NSLayoutConstraint! {
+        return self.constraints.last as NSLayoutConstraint
     }
 
 }

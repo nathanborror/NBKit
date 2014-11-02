@@ -76,27 +76,26 @@ public class Layout {
 
     // MARK: Experimental
 
-    public class func max(direction:LayoutDirection, obj:AnyObject) -> Layout {
-        switch direction {
+    /**
+        Maximizes a given view within its superview.
+
+        :param: view The view you want to fill its superview.
+
+        :returns: A reference to the Layout object.
+    */
+    public class func max(obj:AnyObject, direction:LayoutDirection? = nil) -> Layout {
+        if direction == nil {
+            return Layout(["obj": obj])
+                .add("H:|[obj]|")
+                .add("V:|[obj]|")
+        }
+
+        switch direction! {
         case .Horizontal:
             return Layout(["obj": obj]).add("H:|[obj]|")
         case .Vertical:
             return Layout(["obj": obj]).add("V:|[obj]|")
         }
-    }
-
-    /**
-        A convenience method for when you want a view to maximize the space
-        afforded by its superview.
-
-        :param: view The view you want to fill its superview.
-    
-        :returns: A reference to the Layout object.
-    */
-    public class func max(obj:AnyObject) -> Layout {
-        return Layout(["obj": obj])
-            .add("H:|[obj]|")
-            .add("V:|[obj]|")
     }
 
     /**

@@ -30,15 +30,21 @@ class Regex {
         return self.expression.stringByReplacingMatchesInString(input, options: NSMatchingOptions(0), range: NSMakeRange(0, countElements(input)), withTemplate: with)
     }
 
-    func test(input:String) -> Bool {
-        let matches = self.expression.matchesInString(input, options: NSMatchingOptions(0), range: NSMakeRange(0, countElements(input)))
-        return matches.count > 0
+    func test(input:String?) -> Bool {
+        if input != nil {
+            let matches = self.expression.matchesInString(input!, options: NSMatchingOptions(0), range: NSMakeRange(0, countElements(input!)))
+            return matches.count > 0
+        }
+        return false
     }
 
 }
 
 infix operator =~ {}
 
-func =~ (input:String, pattern:String) -> Bool {
-    return Regex(pattern: pattern).test(input)
+func =~ (input:String?, pattern:String) -> Bool {
+    if input != nil {
+        return Regex(pattern: pattern).test(input!)
+    }
+    return false
 }

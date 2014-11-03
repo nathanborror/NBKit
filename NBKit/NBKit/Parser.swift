@@ -65,23 +65,40 @@ func bool(input: [NSObject:AnyObject], key: String) -> Bool? {
     return number(input, key).map { $0.boolValue }
 }
 
-func curry<A,R>(f: (A) -> R) -> A -> R {
-    return { a in f(a) }
+func curry<A,R>(fn: (A) -> R) -> A -> R {
+    return { a in fn(a) }
 }
 
-func curry<A,B,R>(f: (A,B) -> R) -> A -> B -> R {
-    return { a in { b in f(a,b) } }
+func curry<A,B,R>(fn: (A,B) -> R) -> A -> B -> R {
+    return { a in { b in fn(a,b) } }
 }
 
-func curry<A,B,C,R>(f: (A,B,C) -> R) -> A -> B -> C -> R {
-    return { a in { b in { c in f(a,b,c) } } }
+func curry<A,B,C,R>(fn: (A,B,C) -> R) -> A -> B -> C -> R {
+    return { a in { b in { c in fn(a,b,c) } } }
 }
 
-func curry<A,B,C,D,R>(f: (A,B,C,D) -> R) -> A -> B -> C -> D -> R {
-    return { a in { b in { c in { d in f(a,b,c,d) } } } }
+func curry<A,B,C,D,R>(fn: (A,B,C,D) -> R) -> A -> B -> C -> D -> R {
+    return { a in { b in { c in { d in fn(a,b,c,d) } } } }
+}
+
+func curry<A,B,C,D,E,R>(fn: (A,B,C,D,E) -> R) -> A -> B -> C -> D -> E -> R {
+    return { a in { b in { c in { d in { e in fn(a,b,c,d,e) } } } } }
+}
+
+func curry<A,B,C,D,E,F,R>(fn: (A,B,C,D,E,F) -> R) -> A -> B -> C -> D -> E -> F -> R {
+    return { a in { b in { c in { d in { e in { f in fn(a,b,c,d,e,f) } } } } } }
+}
+
+func curry<A,B,C,D,E,F,G,R>(fn: (A,B,C,D,E,F,G) -> R) -> A -> B -> C -> D -> E -> F -> G -> R {
+    return { a in { b in { c in { d in { e in { f in { g in fn(a,b,c,d,e,f,g) } } } } } } }
+}
+
+func curry<A,B,C,D,E,F,G,H,R>(fn: (A,B,C,D,E,F,G,H) -> R) -> A -> B -> C -> D -> E -> F -> G -> H -> R {
+    return { a in { b in { c in { d in { e in { f in { g in { h in fn(a,b,c,d,e,f,g,h) } } } } } } } }
 }
 
 infix operator >>>= {}
 func >>>=<A,B> (optional: A?, f: A->B?) -> B? {
     return flatten(optional.map(f))
 }
+

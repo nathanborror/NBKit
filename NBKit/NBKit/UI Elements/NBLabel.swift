@@ -25,9 +25,13 @@ class NBLabel: UILabel {
         return super.drawTextInRect(UIEdgeInsetsInsetRect(rect, padding))
     }
 
-    override func intrinsicContentSize() -> CGSize {
-        let size = super.intrinsicContentSize()
-        return CGSizeMake(size.width + (self.padding.left+self.padding.right), size.height + (self.padding.top+self.padding.bottom))
+    override func textRectForBounds(bounds: CGRect, limitedToNumberOfLines numberOfLines: Int) -> CGRect {
+        var rect = super.textRectForBounds(UIEdgeInsetsInsetRect(bounds, self.padding), limitedToNumberOfLines: numberOfLines)
+        rect.origin.x += padding.left
+        rect.origin.y += padding.top
+        rect.size.width += (padding.left + padding.right)
+        rect.size.height += (padding.top + padding.bottom)
+        return rect
     }
 
 }

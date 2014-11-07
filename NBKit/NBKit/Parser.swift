@@ -26,6 +26,7 @@ func join<A> (elements: [A?]) -> [A]? {
 }
 
 infix operator <*> { associativity left precedence 150 }
+
 func <*><A, B> (l: (A -> B)?, r: A?) -> B? {
     if let l1 = l {
         if let r1 = r {
@@ -97,8 +98,12 @@ func curry<A,B,C,D,E,F,G,H,R>(fn: (A,B,C,D,E,F,G,H) -> R) -> A -> B -> C -> D ->
     return { a in { b in { c in { d in { e in { f in { g in { h in fn(a,b,c,d,e,f,g,h) } } } } } } } }
 }
 
+func curry<A,B,C,D,E,F,G,H,I,R>(fn: (A,B,C,D,E,F,G,H,I) -> R) -> A -> B -> C -> D -> E -> F -> G -> H -> I -> R {
+    return { a in { b in { c in { d in { e in { f in { g in { h in { i in fn(a,b,c,d,e,f,g,h,i) } } } } } } } } }
+}
+
 infix operator >>>= {}
+
 func >>>=<A,B> (optional: A?, f: A->B?) -> B? {
     return flatten(optional.map(f))
 }
-

@@ -194,12 +194,3 @@ func >>> <A,B> (source: A?, f:A -> B?) -> B? {
     }
     return nil
 }
-
-infix operator ||= { precedence 10 }
-
-func ||=<T> (value:T?, defaultValue:T) -> T {
-    if value != nil {
-        return value!
-    }
-    return defaultValue
-}

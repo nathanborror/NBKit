@@ -6,6 +6,17 @@ NBKit is a collection of tools to make prototyping iOS apps easier.
 
 Cache is a dead simple way to cache objects temporarily to help reduce the amount of network requests. A great use-case is when you need to cache image data during a session.
 
+Example of setting and getting:
+
+``` swift
+if let lolcat = Cache.shared.get("lolcat.jpg") as? UIImage {
+  // do something with cached image
+} else {
+  // load the image then cache it
+  Cache.shared.set("lolcat.jpg", obj:myImage)
+}
+```
+
 #### JSON.swift
 
 JSON is a collection of enums, classes and functions for parsing JSON into pre-defined structs or classes that represent the data models you're choosing to work with. It's heavly inspired by this [NSScreencast episode](http://nsscreencast.com/episodes/130-swift-json-redux-part-1).

@@ -70,7 +70,7 @@ Layout(["photo":myPhoto])
   .add("V:|[photo]|")
 
 // Alternative
-Layout.max(photo)
+Layout.max(myPhoto)
 
 ```
 

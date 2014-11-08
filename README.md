@@ -54,6 +54,26 @@ let books = json >>> JSArray<Book, Book>.fromJSON
 
 Layout is a more convenient way to programmatically work with [Auto-Layout](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/Introduction/Introduction.html).
 
+Example using a few pre-defined views within a view controller:
+
+``` swift
+// Positions a button 44pt tall 128pt from the top of the screen 
+// and fills the horizontal space with the standard 8pt of margin.
+Layout(["submit": submitButton]).with([
+  "H:|-[submit]-|",
+  "V:|-128-[submit(44)]"
+])
+
+// Fills the entire horizontal and vertical space of the superview
+Layout(["photo":myPhoto])
+  .add("H:|[photo]|")
+  .add("V:|[photo]|")
+
+// Alternative
+Layout.max(photo)
+
+```
+
 #### Regex.swift
 
 Regex is a more convenient way to work with regular expressions.

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D81269DA19FF264B00D5F360 /* NBLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81269D919FF264B00D5F360 /* NBLabel.swift */; };
+		D84C5DE01A38ED290076927F /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84C5DDF1A38ED290076927F /* Cache.swift */; };
+		D84C5DE51A38ED440076927F /* NSData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84C5DE41A38ED440076927F /* NSData.swift */; };
 		D853F0CE19C2D15F0015AE7A /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D853F0CC19C2D15F0015AE7A /* JSONTests.swift */; };
 		D853F0CF19C2D15F0015AE7A /* RequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D853F0CD19C2D15F0015AE7A /* RequestTests.swift */; };
 		D853F0D719C2D78A0015AE7A /* JSON.swift in Headers */ = {isa = PBXBuildFile; fileRef = D8A8CF2019C2D0AE002D9624 /* JSON.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -36,6 +38,8 @@
 
 /* Begin PBXFileReference section */
 		D81269D919FF264B00D5F360 /* NBLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NBLabel.swift; path = "UI Elements/NBLabel.swift"; sourceTree = "<group>"; };
+		D84C5DDF1A38ED290076927F /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		D84C5DE41A38ED440076927F /* NSData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSData.swift; path = Extensions/NSData.swift; sourceTree = "<group>"; };
 		D853F0CC19C2D15F0015AE7A /* JSONTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
 		D853F0CD19C2D15F0015AE7A /* RequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestTests.swift; sourceTree = "<group>"; };
 		D85A4F7F19D5CF030000A6CC /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
@@ -77,6 +81,14 @@
 			name = "UI Elements";
 			sourceTree = "<group>";
 		};
+		D84C5DE11A38ED310076927F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D84C5DE41A38ED440076927F /* NSData.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		D8A8CEFD19C2D087002D9624 = {
 			isa = PBXGroup;
 			children = (
@@ -98,6 +110,7 @@
 		D8A8CF0919C2D087002D9624 /* NBKit */ = {
 			isa = PBXGroup;
 			children = (
+				D84C5DE11A38ED310076927F /* Extensions */,
 				D81269D819FF262A00D5F360 /* UI Elements */,
 				D8A8CF2019C2D0AE002D9624 /* JSON.swift */,
 				D8A8CF2119C2D0AE002D9624 /* Layout.swift */,
@@ -105,6 +118,7 @@
 				D8A8CF2319C2D0AE002D9624 /* Parser.swift */,
 				D8A8CF2419C2D0AE002D9624 /* Request.swift */,
 				D85A4F7F19D5CF030000A6CC /* Regex.swift */,
+				D84C5DDF1A38ED290076927F /* Cache.swift */,
 				D8A8CF0C19C2D087002D9624 /* NBKit.h */,
 				D8A8CF0A19C2D087002D9624 /* Supporting Files */,
 			);
@@ -251,7 +265,9 @@
 			files = (
 				D8A8CF2819C2D0AE002D9624 /* Parser.swift in Sources */,
 				D8A8CF2519C2D0AE002D9624 /* JSON.swift in Sources */,
+				D84C5DE01A38ED290076927F /* Cache.swift in Sources */,
 				D8A8CF2919C2D0AE002D9624 /* Request.swift in Sources */,
+				D84C5DE51A38ED440076927F /* NSData.swift in Sources */,
 				D8A8CF2619C2D0AE002D9624 /* Layout.swift in Sources */,
 				D8A8CF2719C2D0AE002D9624 /* Log.swift in Sources */,
 				D81269DA19FF264B00D5F360 /* NBLabel.swift in Sources */,

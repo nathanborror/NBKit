@@ -32,7 +32,11 @@ extension NSData {
     }
 
     class func loadAsync(url:String, completion:(NSData?, NSError?) -> Void) {
-        NSData.loadAsync(NSURL(string: url)!, completion: completion)
+        if let url = NSURL(string: url) {
+            NSData.loadAsync(url, completion: completion)
+        } else {
+            Log.warn("Unable to convert: \(url) to NSURL.")
+        }
     }
 
 }

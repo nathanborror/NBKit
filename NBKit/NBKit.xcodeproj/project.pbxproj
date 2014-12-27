@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D81269DA19FF264B00D5F360 /* NBLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81269D919FF264B00D5F360 /* NBLabel.swift */; };
+		D8277EBF1A4E3D9B00B281D6 /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8277EBE1A4E3D9B00B281D6 /* NSDate.swift */; };
 		D84C5DE01A38ED290076927F /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84C5DDF1A38ED290076927F /* Cache.swift */; };
 		D84C5DE51A38ED440076927F /* NSData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84C5DE41A38ED440076927F /* NSData.swift */; };
 		D853F0CE19C2D15F0015AE7A /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D853F0CC19C2D15F0015AE7A /* JSONTests.swift */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		D81269D919FF264B00D5F360 /* NBLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NBLabel.swift; path = "UI Elements/NBLabel.swift"; sourceTree = "<group>"; };
+		D8277EBE1A4E3D9B00B281D6 /* NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSDate.swift; path = Extensions/NSDate.swift; sourceTree = "<group>"; };
 		D84C5DDF1A38ED290076927F /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		D84C5DE41A38ED440076927F /* NSData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSData.swift; path = Extensions/NSData.swift; sourceTree = "<group>"; };
 		D853F0CC19C2D15F0015AE7A /* JSONTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				D84C5DE41A38ED440076927F /* NSData.swift */,
+				D8277EBE1A4E3D9B00B281D6 /* NSDate.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				D8A8CF2519C2D0AE002D9624 /* JSON.swift in Sources */,
 				D84C5DE01A38ED290076927F /* Cache.swift in Sources */,
 				D8A8CF2919C2D0AE002D9624 /* Request.swift in Sources */,
+				D8277EBF1A4E3D9B00B281D6 /* NSDate.swift in Sources */,
 				D84C5DE51A38ED440076927F /* NSData.swift in Sources */,
 				D8A8CF2619C2D0AE002D9624 /* Layout.swift in Sources */,
 				D8A8CF2719C2D0AE002D9624 /* Log.swift in Sources */,

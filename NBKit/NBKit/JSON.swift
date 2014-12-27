@@ -146,6 +146,18 @@ class JSInt: JSONDecode {
     }
 }
 
+class JSDouble: JSONDecode {
+    typealias J = Double
+    class func fromJSON(j: JSValue) -> J? {
+        switch j {
+        case .JSNumber(let d):
+            return Double(d)
+        default:
+            return nil
+        }
+    }
+}
+
 class JSBool: JSONDecode {
     typealias J = Bool
     class func fromJSON(j:JSValue) -> J? {

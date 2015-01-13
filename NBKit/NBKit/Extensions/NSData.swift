@@ -14,6 +14,7 @@ extension NSData {
         // Check the cache to see if the item already exists
         if let data = Cache.shared.get(url.absoluteString!) as? NSData {
             completion(data, nil)
+            return
         }
 
         // TODO: Guard against multiple requests for the same url

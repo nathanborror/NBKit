@@ -182,6 +182,18 @@ class JSURL: JSONDecode {
     }
 }
 
+class JSTimeInterval: JSONDecode {
+    typealias J = NSTimeInterval
+    class func fromJSON(j: JSValue) -> J? {
+        switch j {
+        case .JSNumber(let n):
+            return NSTimeInterval(n)
+        default:
+            return nil
+        }
+    }
+}
+
 // MARK: Functions
 
 func compact<T>(collection:[T?]) -> [T] {

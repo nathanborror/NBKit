@@ -90,7 +90,7 @@ enum JSValue: Printable {
 
 protocol JSONDecode {
     typealias J
-    class func fromJSON(j:JSValue) -> J?
+    static func fromJSON(j:JSValue) -> J?
 }
 
 class JSArray<A,B:JSONDecode where B.J == A>: JSONDecode {

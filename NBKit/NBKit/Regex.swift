@@ -27,12 +27,12 @@ class Regex {
     }
 
     func replace(input:String, with:String) -> String {
-        return self.expression.stringByReplacingMatchesInString(input, options: NSMatchingOptions(0), range: NSMakeRange(0, countElements(input)), withTemplate: with)
+        return self.expression.stringByReplacingMatchesInString(input, options: NSMatchingOptions(0), range: NSMakeRange(0, count(input)), withTemplate: with)
     }
 
     func test(input:String?) -> Bool {
         if input != nil {
-            let matches = self.expression.matchesInString(input!, options: NSMatchingOptions(0), range: NSMakeRange(0, countElements(input!)))
+            let matches = self.expression.matchesInString(input!, options: NSMatchingOptions(0), range: NSMakeRange(0, count(input!)))
             return matches.count > 0
         }
         return false

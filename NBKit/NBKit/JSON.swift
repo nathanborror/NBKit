@@ -22,7 +22,7 @@ enum JSValue: Printable {
         var error:NSError?
         let options = NSJSONReadingOptions.AllowFragments
         if let json:AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: options, error: &error) {
-            return make(json as NSObject)
+            return make(json as! NSObject)
         }
 
         println("Couldn't parse privided JSON")
@@ -36,7 +36,7 @@ enum JSValue: Printable {
         case let d as NSDictionary:
             return makeObject(d)
         case let s as NSString:
-            return .JSString(s)
+            return .JSString(s as! String)
         case let n as NSNumber:
             return .JSNumber(n.doubleValue)
         case let b as Bool:
@@ -52,7 +52,7 @@ enum JSValue: Printable {
     static func makeArray(array:NSArray) -> JSValue {
         var items = [JSValue]()
         for obj in array {
-            let value = make(obj as NSObject)
+            let value = make(obj as! NSObject)
             items.append(value)
         }
         return .JSArray(items)
@@ -61,7 +61,7 @@ enum JSValue: Printable {
     static func makeObject(dict:NSDictionary) -> JSValue {
         var obj = [String:JSValue]()
         for (key,value) in dict {
-            obj[key as String] = make(value as NSObject)
+            obj[key as! String] = make(value as! NSObject)
         }
         return .JSObject(obj)
     }

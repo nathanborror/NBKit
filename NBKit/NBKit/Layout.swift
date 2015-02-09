@@ -34,7 +34,7 @@ public class Layout {
             view.setTranslatesAutoresizingMaskIntoConstraints(false)
 
             // FIXME: not optimal
-            if let superview = view.superview? {
+            if let superview = view.superview {
                 self.superview = superview
             }
         }
@@ -102,7 +102,7 @@ public class Layout {
         Returns the last constraint added to a superview.
     */
     public func last() -> NSLayoutConstraint! {
-        return self.constraints.last as NSLayoutConstraint
+        return self.constraints.last as! NSLayoutConstraint
     }
 
     /**

@@ -38,6 +38,13 @@ class Regex {
         return false
     }
 
+    func match(input: String?) -> [NSTextCheckingResult] {
+        if input != nil {
+            return self.expression.matchesInString(input!, options: NSMatchingOptions(0), range: NSRange(location: 0, length: count(input!))) as [NSTextCheckingResult]
+        }
+        return [NSTextCheckingResult]()
+    }
+
 }
 
 infix operator =~ {}

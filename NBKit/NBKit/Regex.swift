@@ -39,8 +39,9 @@ class Regex {
     }
 
     func match(input: String?) -> [NSTextCheckingResult] {
-        if input != nil {
-            return self.expression.matchesInString(input!, options: NSMatchingOptions(0), range: NSRange(location: 0, length: count(input!))) as [NSTextCheckingResult]
+        if let str = input {
+            let range = NSRange(location: 0, length: count(str))
+            return self.expression.matchesInString(str, options: NSMatchingOptions(0), range: range) as! [NSTextCheckingResult]
         }
         return [NSTextCheckingResult]()
     }

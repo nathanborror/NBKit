@@ -20,12 +20,12 @@
         v.frame = frame;
         v.alpha = alpha;
     } else if (animation == UIStatusBarAnimationFade) {
-        [UIView animateWithDuration:0.3 animations:^{
+        [UIView animateWithDuration:0.15 animations:^{
             v.frame = CGRectMake(v.frame.origin.x, 0.0, v.frame.size.width, v.frame.size.height);
             v.alpha = alpha;
         }];
     } else if (animation == UIStatusBarAnimationSlide) {
-        [UIView animateWithDuration:0.3 animations:^{
+        [UIView animateWithDuration:0.15 animations:^{
             v.frame = frame;
             v.alpha = 1.0;
         }];

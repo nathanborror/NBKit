@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D807C0361AACE58F00D1D7A8 /* Array+NBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D807C0351AACE58F00D1D7A8 /* Array+NBKit.swift */; };
+		D807C0481AACE77500D1D7A8 /* Array+NBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D807C0471AACE77500D1D7A8 /* Array+NBKit.swift */; };
 		D81269DA19FF264B00D5F360 /* NBLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81269D919FF264B00D5F360 /* NBLabel.swift */; };
 		D8277EBF1A4E3D9B00B281D6 /* NSDate+NBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8277EBE1A4E3D9B00B281D6 /* NSDate+NBKit.swift */; };
 		D84C5DE01A38ED290076927F /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84C5DDF1A38ED290076927F /* Cache.swift */; };
@@ -40,7 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D807C0351AACE58F00D1D7A8 /* Array+NBKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+NBKit.swift"; sourceTree = "<group>"; };
+		D807C0471AACE77500D1D7A8 /* Array+NBKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Array+NBKit.swift"; path = "Extensions/Array+NBKit.swift"; sourceTree = "<group>"; };
 		D81269D919FF264B00D5F360 /* NBLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NBLabel.swift; path = "UI Elements/NBLabel.swift"; sourceTree = "<group>"; };
 		D8277EBE1A4E3D9B00B281D6 /* NSDate+NBKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSDate+NBKit.swift"; path = "Extensions/NSDate+NBKit.swift"; sourceTree = "<group>"; };
 		D84C5DDF1A38ED290076927F /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
@@ -90,9 +90,9 @@
 		D84C5DE11A38ED310076927F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				D807C0471AACE77500D1D7A8 /* Array+NBKit.swift */,
 				D84C5DE41A38ED440076927F /* NSData+NBKit.swift */,
 				D8277EBE1A4E3D9B00B281D6 /* NSDate+NBKit.swift */,
-				D807C0351AACE58F00D1D7A8 /* Array+NBKit.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -286,10 +286,10 @@
 				D84C5DE01A38ED290076927F /* Cache.swift in Sources */,
 				D8A8CF2919C2D0AE002D9624 /* Request.swift in Sources */,
 				D8277EBF1A4E3D9B00B281D6 /* NSDate+NBKit.swift in Sources */,
+				D807C0481AACE77500D1D7A8 /* Array+NBKit.swift in Sources */,
 				D84C5DE51A38ED440076927F /* NSData+NBKit.swift in Sources */,
 				D8A8CF2619C2D0AE002D9624 /* Layout.swift in Sources */,
 				D8A8CF2719C2D0AE002D9624 /* Log.swift in Sources */,
-				D807C0361AACE58F00D1D7A8 /* Array+NBKit.swift in Sources */,
 				D81269DA19FF264B00D5F360 /* NBLabel.swift in Sources */,
 				D85A4F8019D5CF030000A6CC /* Regex.swift in Sources */,
 			);

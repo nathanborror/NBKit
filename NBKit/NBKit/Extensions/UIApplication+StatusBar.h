@@ -11,5 +11,6 @@
 @interface UIApplication (StatusBar)
 
 + (void) setStatusBarHidden:(BOOL)hidden withAnimation:(UIStatusBarAnimation)animation;
++ (BOOL) statusBarIsHidden;
 
 @end

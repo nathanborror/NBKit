@@ -10,8 +10,13 @@
 
 @implementation UIApplication (StatusBar)
 
+static BOOL isHidden = false;
+
 + (void) setStatusBarHidden:(BOOL)hidden withAnimation:(UIStatusBarAnimation)animation {
     UIView * v = [self statusBar];
+    
+    if (isHidden == hidden) return;
+    isHidden = hidden;
     
     CGFloat alpha = hidden ? 0.0 : 1.0;
     CGRect frame = CGRectMake(v.frame.origin.x, (hidden ? -1.0 * v.frame.size.height : 0.0), v.frame.size.width, v.frame.size.height);
@@ -30,6 +35,10 @@
             v.alpha = 1.0;
         }];
     }
+}
+
++ (BOOL) statusBarIsHidden {
+    return isHidden;
 }
 
 + (UIView *) statusBar {

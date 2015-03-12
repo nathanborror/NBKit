@@ -12,5 +12,6 @@
 
 + (void) setStatusBarHidden:(BOOL)hidden withAnimation:(UIStatusBarAnimation)animation;
 + (BOOL) statusBarIsHidden;
++ (UIView *) keyboardView;
 
 @end

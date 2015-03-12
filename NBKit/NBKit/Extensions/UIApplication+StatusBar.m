@@ -41,6 +41,23 @@ static BOOL isHidden = false;
     return isHidden;
 }
 
++ (UIView *) keyboardView {
+    for (UIWindow * window in [UIApplication sharedApplication].windows) {
+        if ([NSStringFromClass([window class]) isEqualToString:@"UITextEffectsWindow"]) {
+            for (UIView * v in window.subviews) {
+                if ([NSStringFromClass([v class]) isEqualToString:@"UIInputSetContainerView"]) {
+                    for (UIView * keyboardView in v.subviews) {
+                        if ([NSStringFromClass([keyboardView class]) isEqualToString:@"UIInputSetHostView"]) {
+                            return keyboardView;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return nil;
+}
+
 + (UIView *) statusBar {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"

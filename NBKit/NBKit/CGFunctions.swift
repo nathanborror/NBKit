@@ -88,3 +88,7 @@ func CenterY(parent: UIView?, child: UIView?) -> CGFloat {
 func Right(parent: UIView?, child: UIView?) -> CGFloat {
     return Width(parent) - Width(child)
 }
+
+func x2(value: CGFloat) -> CGFloat {
+    return value * 2.0
+}

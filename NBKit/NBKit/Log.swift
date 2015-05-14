@@ -1,21 +1,24 @@
-//
-//  Log.swift
-//  NBKitExample
-//
-//  Created by Nathan Borror on 9/11/14.
-//  Copyright (c) 2014 Nathan Borror. All rights reserved.
-//
+/*
+    Log.swift
+    NBKit
+
+    Created by Nathan Borror on 9/11/14.
+    Copyright (c) 2014 Nathan Borror. All rights reserved.
+
+    Abstract:
+        The `Log` class provides convient ways to log things.
+*/
 
 import Foundation
 
-enum LogLevel {
+public enum LogLevel {
     case Debug
     case Info
     case Warn
     case Error
     case Verbose
 
-    func description() -> String {
+    public func description() -> String {
         switch self {
         case .Debug:    return "[Debug]"
         case .Info:     return "[Info]"
@@ -28,7 +31,7 @@ enum LogLevel {
 
 public class Log {
 
-    init<T>(_ level:LogLevel, message:T?) {
+    public init<T>(_ level:LogLevel, message:T?) {
         if message is String {
             println("\(level.description()): \(message!)")
             return

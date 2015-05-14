@@ -1,16 +1,18 @@
-//
-//  JSON.swift
-//  NBKit
-//
-//  Created by Nathan Borror on 8/26/14.
-//  Copyright (c) 2014 Nathan Borror. All rights reserved.
-//
-//  Heavily inspired by: https://github.com/subdigital/nsscreencast
-//
+/*
+    JSON.swift
+    NBKit
+
+    Created by Nathan Borror on 8/26/14.
+    Copyright (c) 2014 Nathan Borror. All rights reserved.
+
+    Abstract:
+        The `JSON` class offers a simpler way to parse json. Heavily 
+        inspired by: https://github.com/subdigital/nsscreencast
+*/
 
 import Foundation
 
-enum JSValue: Printable {
+public enum JSValue: Printable {
     case JSArray([JSValue])
     case JSObject([String:JSValue])
     case JSString(String)
@@ -18,7 +20,7 @@ enum JSValue: Printable {
     case JSBool(Bool)
     case JSNull()
 
-    static func decode(data:NSData) -> JSValue? {
+    public static func decode(data:NSData) -> JSValue? {
         var error:NSError?
         let options = NSJSONReadingOptions.AllowFragments
         if let json:AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: options, error: &error) {
@@ -29,7 +31,7 @@ enum JSValue: Printable {
         return nil
     }
 
-    static func make(obj:NSObject) -> JSValue {
+    public static func make(obj:NSObject) -> JSValue {
         switch obj {
         case let a as NSArray:
             return makeArray(a)
@@ -49,7 +51,7 @@ enum JSValue: Printable {
         }
     }
 
-    static func makeArray(array:NSArray) -> JSValue {
+    public static func makeArray(array:NSArray) -> JSValue {
         var items = [JSValue]()
         for obj in array {
             let value = make(obj as! NSObject)
@@ -58,7 +60,7 @@ enum JSValue: Printable {
         return .JSArray(items)
     }
 
-    static func makeObject(dict:NSDictionary) -> JSValue {
+    public static func makeObject(dict:NSDictionary) -> JSValue {
         var obj = [String:JSValue]()
         for (key,value) in dict {
             obj[key as! String] = make(value as! NSObject)
@@ -66,7 +68,7 @@ enum JSValue: Printable {
         return .JSObject(obj)
     }
 
-    var description:String {
+    public var description:String {
         get {
             switch self {
             case let .JSArray(a):
@@ -88,14 +90,14 @@ enum JSValue: Printable {
 
 // MARK: JSON Decoding
 
-protocol JSONDecode {
+public protocol JSONDecode {
     typealias J
     static func fromJSON(j:JSValue) -> J?
 }
 
-class JSArray<A,B:JSONDecode where B.J == A>: JSONDecode {
-    typealias J = [A]
-    class func fromJSON(j:JSValue) -> J? {
+public class JSArray<A,B:JSONDecode where B.J == A>: JSONDecode {
+    public typealias J = [A]
+    public class func fromJSON(j:JSValue) -> J? {
         switch j {
         case .JSArray(let array):
             let mapped = array.map { B.fromJSON($0) }
@@ -110,9 +112,9 @@ class JSArray<A,B:JSONDecode where B.J == A>: JSONDecode {
     }
 }
 
-class JSObject: JSONDecode {
-    typealias J = [String: JSValue]
-    class func fromJSON(j:JSValue) -> J? {
+public class JSObject: JSONDecode {
+    public typealias J = [String: JSValue]
+    public class func fromJSON(j:JSValue) -> J? {
         switch j {
         case .JSObject(let s):
             return s as J
@@ -122,9 +124,9 @@ class JSObject: JSONDecode {
     }
 }
 
-class JSString: JSONDecode {
-    typealias J = String
-    class func fromJSON(j:JSValue) -> J? {
+public class JSString: JSONDecode {
+    public typealias J = String
+    public class func fromJSON(j:JSValue) -> J? {
         switch j {
         case .JSString(let s):
             return s
@@ -134,9 +136,9 @@ class JSString: JSONDecode {
     }
 }
 
-class JSInt: JSONDecode {
-    typealias J = Int
-    class func fromJSON(j:JSValue) -> J? {
+public class JSInt: JSONDecode {
+    public typealias J = Int
+    public class func fromJSON(j:JSValue) -> J? {
         switch j {
         case .JSNumber(let n):
             return Int(n)
@@ -146,9 +148,9 @@ class JSInt: JSONDecode {
     }
 }
 
-class JSDouble: JSONDecode {
-    typealias J = Double
-    class func fromJSON(j: JSValue) -> J? {
+public class JSDouble: JSONDecode {
+    public typealias J = Double
+    public class func fromJSON(j: JSValue) -> J? {
         switch j {
         case .JSNumber(let d):
             return Double(d)
@@ -158,9 +160,9 @@ class JSDouble: JSONDecode {
     }
 }
 
-class JSBool: JSONDecode {
-    typealias J = Bool
-    class func fromJSON(j:JSValue) -> J? {
+public class JSBool: JSONDecode {
+    public typealias J = Bool
+    public class func fromJSON(j:JSValue) -> J? {
         switch j {
         case .JSBool(let n):
             return Bool(n)
@@ -170,9 +172,9 @@ class JSBool: JSONDecode {
     }
 }
 
-class JSURL: JSONDecode {
-    typealias J = NSURL
-    class func fromJSON(j:JSValue) -> NSURL? {
+public class JSURL: JSONDecode {
+    public typealias J = NSURL
+    public class func fromJSON(j:JSValue) -> NSURL? {
         switch j {
         case .JSString(let s):
             return NSURL(string: s)
@@ -182,9 +184,9 @@ class JSURL: JSONDecode {
     }
 }
 
-class JSTimeInterval: JSONDecode {
-    typealias J = NSTimeInterval
-    class func fromJSON(j: JSValue) -> J? {
+public class JSTimeInterval: JSONDecode {
+    public typealias J = NSTimeInterval
+    public class func fromJSON(j: JSValue) -> J? {
         switch j {
         case .JSNumber(let n):
             return NSTimeInterval(n)
@@ -196,7 +198,7 @@ class JSTimeInterval: JSONDecode {
 
 // MARK: Functions
 
-func compact<T>(collection:[T?]) -> [T] {
+public func compact<T>(collection:[T?]) -> [T] {
     return filter(collection) {
         if $0 != nil {
             return true
@@ -212,7 +214,7 @@ infix operator >>> {
     precedence 150
 }
 
-func >>> <A,B> (source: A?, f:A -> B?) -> B? {
+public func >>> <A,B> (source: A?, f:A -> B?) -> B? {
     if source != nil {
         return f(source!)
     }

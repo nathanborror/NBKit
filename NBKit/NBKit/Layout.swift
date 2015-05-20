@@ -1,10 +1,14 @@
-//
-//  Layout.swift
-//  NBKit
-//
-//  Created by Nathan Borror on 9/4/14.
-//  Copyright (c) 2014 Nathan Borror. All rights reserved.
-//
+/*
+    Layout.swift
+    NBKit
+
+    Created by Nathan Borror on 9/4/14.
+    Copyright (c) 2014 Nathan Borror. All rights reserved.
+
+    Abstract:
+        The `Layout` class offers a simpler way for declaring auto-layout
+        constraints.
+*/
 
 import UIKit
 

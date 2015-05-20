@@ -10,16 +10,15 @@
         Core Geometry functions a little easier and more terser to use.
 */
 
-import Foundation
 import UIKit
 
-enum CGProperty {
+public enum CGProperty {
     case Width, Height
     case MinX, MidX, MaxX
     case MinY, MidY, MaxY
 }
 
-func GetCGProperty(prop: CGProperty, frame: CGRect?) -> CGFloat {
+public func GetCGProperty(prop: CGProperty, frame: CGRect?) -> CGFloat {
     if let frame = frame {
         switch prop {
         case .Width:
@@ -45,46 +44,50 @@ func GetCGProperty(prop: CGProperty, frame: CGRect?) -> CGFloat {
     return 0.0
 }
 
-func Width(view: UIView?) -> CGFloat {
+public func Width(view: UIView?) -> CGFloat {
     return GetCGProperty(.Width, view?.bounds)
 }
 
-func Height(view: UIView?) -> CGFloat {
+public func Height(view: UIView?) -> CGFloat {
     return GetCGProperty(.Height, view?.bounds)
 }
 
-func MinX(view: UIView?) -> CGFloat {
+public func MinX(view: UIView?) -> CGFloat {
     return GetCGProperty(.MinX, view?.frame)
 }
 
-func MidX(view: UIView?) -> CGFloat {
+public func MidX(view: UIView?) -> CGFloat {
     return GetCGProperty(.MidX, view?.frame)
 }
 
-func MaxX(view: UIView?) -> CGFloat {
+public func MaxX(view: UIView?) -> CGFloat {
     return GetCGProperty(.MaxX, view?.frame)
 }
 
-func MinY(view: UIView?) -> CGFloat {
+public func MinY(view: UIView?) -> CGFloat {
     return GetCGProperty(.MinY, view?.frame)
 }
 
-func MidY(view: UIView?) -> CGFloat {
+public func MidY(view: UIView?) -> CGFloat {
     return GetCGProperty(.MidY, view?.frame)
 }
 
-func MaxY(view: UIView?) -> CGFloat {
+public func MaxY(view: UIView?) -> CGFloat {
     return GetCGProperty(.MaxY, view?.frame)
 }
 
-func CenterX(parent: UIView?, child: UIView?) -> CGFloat {
+public func CenterX(parent: UIView?, child: UIView?) -> CGFloat {
     return (Width(parent) / 2.0) - (Width(child) / 2.0)
 }
 
-func CenterY(parent: UIView?, child: UIView?) -> CGFloat {
+public func CenterY(parent: UIView?, child: UIView?) -> CGFloat {
     return (Height(parent) / 2.0) - (Height(child) / 2.0)
 }
 
-func Right(parent: UIView?, child: UIView?) -> CGFloat {
+public func Right(parent: UIView?, child: UIView?) -> CGFloat {
     return Width(parent) - Width(child)
+}
+
+public func x2(value: CGFloat) -> CGFloat {
+    return value * 2.0
 }

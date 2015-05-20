@@ -1,16 +1,20 @@
-//
-//  NSData.swift
-//  Streams
-//
-//  Created by Nathan Borror on 11/4/14.
-//  Copyright (c) 2014 Dropbox. All rights reserved.
-//
+/*
+    NSData.swift
+    NBKit
+
+    Created by Nathan Borror on 11/4/14.
+    Copyright (c) 2014 Nathan Borror. All rights reserved.
+
+    Abstract:
+        The `NSData` extension adds a loadAsync method for loading data
+        in a background thread.
+*/
 
 import Foundation
 
 extension NSData {
 
-    class func loadAsync(url:String, completion:(NSData?, NSError?) -> Void) {
+    public class func loadAsync(url:String, completion:(NSData?, NSError?) -> Void) {
         if let url = NSURL(string: url) {
             // Check the cache to see if the item already exists
             if let data = Cache.shared.get(url.absoluteString!) as? NSData {

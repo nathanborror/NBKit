@@ -1,10 +1,14 @@
-//
-//  NSDate.swift
-//  NBKit
-//
-//  Created by Nathan Borror on 12/26/14.
-//  Copyright (c) 2014 Nathan Borror. All rights reserved.
-//
+/*
+    NSDate.swift
+    NBKit
+
+    Created by Nathan Borror on 12/26/14.
+    Copyright (c) 2014 Nathan Borror. All rights reserved.
+
+    Abstract:
+        The `NSDate` extension adds some convenient class methods for dealing
+        with dates.
+*/
 
 import Foundation
 

@@ -14,4 +14,7 @@
 + (BOOL) statusBarIsHidden;
 + (UIView *) keyboardView;
 
++ (void) showStatusBarMessage:(NSString *)message;
++ (void) hideStatusBarMessage;
+
 @end

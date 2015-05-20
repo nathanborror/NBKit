@@ -11,6 +11,8 @@
 @implementation UIApplication (StatusBar)
 
 static BOOL isHidden = false;
+static UIView * containerView = nil;
+static UILabel * messageLabel = nil;
 
 + (void) setStatusBarHidden:(BOOL)hidden withAnimation:(UIStatusBarAnimation)animation {
     UIView * v = [self statusBar];
@@ -56,6 +58,48 @@ static BOOL isHidden = false;
         }
     }
     return nil;
+}
+
++ (void) showStatusBarMessage:(NSString *)message {
+    if (messageLabel != nil && messageLabel.superview != nil) {
+        messageLabel.text = message;
+        return;
+    }
+    
+    if (containerView == nil) {
+        UIView * v = [self statusBar];
+        containerView = [[UIView alloc] initWithFrame:v.frame];
+        containerView.backgroundColor = [UIColor clearColor];
+        containerView.userInteractionEnabled = NO;
+        containerView.clipsToBounds = YES;
+        [v.superview addSubview:containerView];
+    }
+    
+    messageLabel = [[UILabel alloc] initWithFrame:containerView.bounds];
+    messageLabel.backgroundColor = [UIColor clearColor];
+    messageLabel.font = [UIFont boldSystemFontOfSize:12.0];
+    messageLabel.textColor = [self sharedApplication].statusBarStyle == UIStatusBarStyleDefault ? [UIColor blackColor] : [UIColor whiteColor];
+    messageLabel.textAlignment = NSTextAlignmentCenter;
+    messageLabel.numberOfLines = 1;
+    messageLabel.text = message;
+    [containerView addSubview:messageLabel];
+    
+    [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+    [UIView animateWithDuration:0.15 animations:^{
+        messageLabel.frame = CGRectMake(0.0, 0.0, messageLabel.frame.size.width, messageLabel.frame.size.height);
+    }];
+}
+
++ (void) hideStatusBarMessage {
+    if (messageLabel != nil && messageLabel.superview != nil) {
+        [self setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+        [UIView animateWithDuration:0.15 animations:^{
+            messageLabel.frame = CGRectMake(0.0, [self statusBar].frame.size.height, messageLabel.frame.size.width, messageLabel.frame.size.height);
+        } completion:^(BOOL finished) {
+            [messageLabel removeFromSuperview];
+            messageLabel = nil;
+        }];
+    }
 }
 
 + (UIView *) statusBar {

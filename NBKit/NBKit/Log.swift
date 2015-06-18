@@ -33,10 +33,10 @@ public class Log {
 
     public init<T>(_ level:LogLevel, message:T?) {
         if message is String {
-            println("\(level.description()): \(message!)")
+            print("\(level.description()): \(message!)")
             return
         }
-        println("\(level.description()): \(message)")
+        print("\(level.description()): \(message)")
     }
 
     public class func error<T>(message: T?) {

@@ -15,46 +15,59 @@ import Foundation
 public class Regex {
 
     let pattern:String
-    let expression:NSRegularExpression
+    var expression:NSRegularExpression?
 
-    public init(_ pattern:String, options:NSRegularExpressionOptions) {
+    public init(pattern:String, options:NSRegularExpressionOptions = NSRegularExpressionOptions.CaseInsensitive) throws {
         self.pattern = pattern
 
-        var error:NSError?
-        self.expression = NSRegularExpression(pattern: self.pattern, options: options, error: &error)!
-    }
-
-    convenience public init(pattern:String) {
-        self.init(pattern, options: NSRegularExpressionOptions.CaseInsensitive)
+        do {
+            self.expression = try NSRegularExpression(pattern: self.pattern, options: options)
+        } catch {
+            throw(error)
+        }
     }
 
     public func replace(input:String, with:String) -> String {
-        return self.expression.stringByReplacingMatchesInString(input, options: NSMatchingOptions(0), range: NSMakeRange(0, count(input)), withTemplate: with)
+        let range = NSMakeRange(0, input.characters.count)
+        guard let result = self.expression?.stringByReplacingMatchesInString(input, options: NSMatchingOptions(rawValue: 0), range: range, withTemplate: with) else {
+            return ""
+        }
+        return result
     }
 
     public func test(input:String?) -> Bool {
-        if input != nil {
-            let matches = self.expression.matchesInString(input!, options: NSMatchingOptions(0), range: NSMakeRange(0, count(input!)))
-            return matches.count > 0
+        guard let str = input else {
+            return false
         }
-        return false
+
+        let range = NSMakeRange(0, str.characters.count)
+        guard let matches = self.expression?.matchesInString(str, options: NSMatchingOptions(rawValue: 0), range: range) else {
+            return false
+        }
+
+        return matches.count > 0
     }
 
     public func match(input: String?) -> [NSTextCheckingResult] {
-        if let str = input {
-            let range = NSRange(location: 0, length: count(str))
-            return self.expression.matchesInString(str, options: NSMatchingOptions(0), range: range) as! [NSTextCheckingResult]
+        guard let str = input else {
+            return [NSTextCheckingResult]()
         }
-        return [NSTextCheckingResult]()
+
+        let range = NSRange(location: 0, length: str.characters.count)
+        guard let matches = self.expression?.matchesInString(str, options: NSMatchingOptions(rawValue: 0), range: range) else {
+            return [NSTextCheckingResult]()
+        }
+
+        return matches
     }
 
 }
 
 infix operator =~ {}
 
-public func =~ (input:String?, pattern:String) -> Bool {
+public func =~ (input:String?, pattern:String) throws -> Bool {
     if input != nil {
-        return Regex(pattern: pattern).test(input!)
+        return try Regex(pattern: pattern).test(input!)
     }
     return false
 }

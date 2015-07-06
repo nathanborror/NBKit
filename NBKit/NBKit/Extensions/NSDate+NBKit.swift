@@ -41,16 +41,16 @@ extension NSDate {
         case 0...1:
             return "never"
         case 0...60:
-            return "just now"
+            return "now"
         case 0...3600: // 60 min
             let diff = Int(round(since/60))
-            return "\(diff) minutes ago"
+            return "\(diff)m"
         case 0...86400: // 24 hr
             let diff = Int(round(since/60/60))
-            return "\(diff) hours ago"
+            return "\(diff)h"
         case 0...2629743: // 1 day
             let diff = Int(round(since/60/60/24))
-            return "\(diff) days ago"
+            return "\(diff)d"
         default:
             return "unknown"
         }

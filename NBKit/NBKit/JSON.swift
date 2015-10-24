@@ -12,7 +12,7 @@
 
 import Foundation
 
-public enum JSValue: Printable {
+public enum JSValue: CustomStringConvertible {
     case JSArray([JSValue])
     case JSObject([String:JSValue])
     case JSString(String)
@@ -21,14 +21,14 @@ public enum JSValue: Printable {
     case JSNull()
 
     public static func decode(data:NSData) -> JSValue? {
-        var error:NSError?
-        let options = NSJSONReadingOptions.AllowFragments
-        if let json:AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: options, error: &error) {
+        do {
+            let options = NSJSONReadingOptions.AllowFragments
+            let json:AnyObject = try NSJSONSerialization.JSONObjectWithData(data, options: options)
             return make(json as! NSObject)
+        } catch {
+            print("Couldn't parse privided JSON")
+            return nil
         }
-
-        println("Couldn't parse privided JSON")
-        return nil
     }
 
     public static func make(obj:NSObject) -> JSValue {
@@ -38,15 +38,15 @@ public enum JSValue: Printable {
         case let d as NSDictionary:
             return makeObject(d)
         case let s as NSString:
-            return .JSString(s as! String)
+            return .JSString(s as String)
         case let n as NSNumber:
             return .JSNumber(n.doubleValue)
         case let b as Bool:
             return .JSBool(b)
-        case let null as NSNull:
+        case is NSNull:
             return .JSNull()
         default:
-            println("Unhandled type <\(obj)>")
+            print("Unhandled type <\(obj)>")
             abort()
         }
     }
@@ -81,7 +81,7 @@ public enum JSValue: Printable {
                 return "JSNumber(\(n))"
             case let .JSBool(b):
                 return "JSBool(\(b))"
-            case let .JSNull():
+            case .JSNull():
                 return "JSNull()"
             }
         }
@@ -199,7 +199,7 @@ public class JSTimeInterval: JSONDecode {
 // MARK: Functions
 
 public func compact<T>(collection:[T?]) -> [T] {
-    return filter(collection) {
+    return collection.filter {
         if $0 != nil {
             return true
         }

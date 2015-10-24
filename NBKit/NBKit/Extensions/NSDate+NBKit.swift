@@ -15,7 +15,7 @@ import Foundation
 extension NSDate {
 
     public class func parse(dateStr: String, format: String = "yyyy-MM-dd") -> NSDate {
-        var dateFmt = NSDateFormatter()
+        let dateFmt = NSDateFormatter()
         dateFmt.timeZone = NSTimeZone.defaultTimeZone()
         dateFmt.dateFormat = format
         return dateFmt.dateFromString(dateStr)!
@@ -26,11 +26,11 @@ extension NSDate {
         formatter.formatterBehavior = NSDateFormatterBehavior.Behavior10_4
         formatter.dateFormat = format
 
-        if let date = formatter.dateFromString(dateStr) {
-            return NSDate.timesince(date)
+        guard let date = formatter.dateFromString(dateStr) else {
+            return "unknown"
         }
 
-        return "unknown"
+        return NSDate.timesince(date)
     }
 
     public class func timesince(date: NSDate) -> String {
@@ -41,26 +41,26 @@ extension NSDate {
         case 0...1:
             return "never"
         case 0...60:
-            return "just now"
+            return "now"
         case 0...3600: // 60 min
             let diff = Int(round(since/60))
-            return "\(diff) minutes ago"
+            return "\(diff)m"
         case 0...86400: // 24 hr
             let diff = Int(round(since/60/60))
-            return "\(diff) hours ago"
+            return "\(diff)h"
         case 0...2629743: // 1 day
             let diff = Int(round(since/60/60/24))
-            return "\(diff) days ago"
+            return "\(diff)d"
         default:
             return "unknown"
         }
     }
 
-    public class func from(#unix: Double) -> NSDate {
+    public class func from(unix: Double) -> NSDate {
         return NSDate(timeIntervalSince1970: unix)
     }
 
-    public class func unix(_ date: NSDate = NSDate()) -> Double {
+    public class func unix(date: NSDate = NSDate()) -> Double {
         return date.timeIntervalSince1970 as Double
     }
     

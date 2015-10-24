@@ -19,61 +19,60 @@ public enum CGProperty {
 }
 
 public func GetCGProperty(prop: CGProperty, frame: CGRect?) -> CGFloat {
-    if let frame = frame {
-        switch prop {
-        case .Width:
-            return CGRectGetWidth(frame)
-        case .Height:
-            return CGRectGetHeight(frame)
-        case .MinX:
-            return CGRectGetMinX(frame)
-        case .MidX:
-            return CGRectGetMidX(frame)
-        case .MaxX:
-            return CGRectGetMaxX(frame)
-        case .MinY:
-            return CGRectGetMinY(frame)
-        case .MidY:
-            return CGRectGetMidY(frame)
-        case .MaxY:
-            return CGRectGetMaxY(frame)
-        default:
-            break
-        }
+    guard let frame = frame else {
+        return 0.0
     }
-    return 0.0
+
+    switch prop {
+    case .Width:
+        return CGRectGetWidth(frame)
+    case .Height:
+        return CGRectGetHeight(frame)
+    case .MinX:
+        return CGRectGetMinX(frame)
+    case .MidX:
+        return CGRectGetMidX(frame)
+    case .MaxX:
+        return CGRectGetMaxX(frame)
+    case .MinY:
+        return CGRectGetMinY(frame)
+    case .MidY:
+        return CGRectGetMidY(frame)
+    case .MaxY:
+        return CGRectGetMaxY(frame)
+    }
 }
 
 public func Width(view: UIView?) -> CGFloat {
-    return GetCGProperty(.Width, view?.bounds)
+    return GetCGProperty(.Width, frame: view?.bounds)
 }
 
 public func Height(view: UIView?) -> CGFloat {
-    return GetCGProperty(.Height, view?.bounds)
+    return GetCGProperty(.Height, frame: view?.bounds)
 }
 
 public func MinX(view: UIView?) -> CGFloat {
-    return GetCGProperty(.MinX, view?.frame)
+    return GetCGProperty(.MinX, frame: view?.frame)
 }
 
 public func MidX(view: UIView?) -> CGFloat {
-    return GetCGProperty(.MidX, view?.frame)
+    return GetCGProperty(.MidX, frame: view?.frame)
 }
 
 public func MaxX(view: UIView?) -> CGFloat {
-    return GetCGProperty(.MaxX, view?.frame)
+    return GetCGProperty(.MaxX, frame: view?.frame)
 }
 
 public func MinY(view: UIView?) -> CGFloat {
-    return GetCGProperty(.MinY, view?.frame)
+    return GetCGProperty(.MinY, frame: view?.frame)
 }
 
 public func MidY(view: UIView?) -> CGFloat {
-    return GetCGProperty(.MidY, view?.frame)
+    return GetCGProperty(.MidY, frame: view?.frame)
 }
 
 public func MaxY(view: UIView?) -> CGFloat {
-    return GetCGProperty(.MaxY, view?.frame)
+    return GetCGProperty(.MaxY, frame: view?.frame)
 }
 
 public func CenterX(parent: UIView?, child: UIView?) -> CGFloat {

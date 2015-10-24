@@ -22,7 +22,7 @@ public class Layout {
 
     public var views: [String:AnyObject]
     public var superview: AnyObject?
-    public var constraints = [AnyObject]()
+    public var constraints = [NSLayoutConstraint]()
 
     /**
         Creates a Layout for the given views and figures out the superview
@@ -34,8 +34,8 @@ public class Layout {
     public init(_ views:[String:AnyObject]) {
         self.views = views
 
-        for (key,view) in self.views {
-            view.setTranslatesAutoresizingMaskIntoConstraints(false)
+        for (_,view) in self.views {
+            //view.setTranslatesAutoresizingMaskIntoConstraints(false)
 
             // FIXME: not optimal
             if let superview = view.superview {
@@ -54,7 +54,7 @@ public class Layout {
     
         :returns: A reference to the Layout object.
     */
-    public func with(formats:[String], metrics:[String:Double]? = nil, options:NSLayoutFormatOptions = NSLayoutFormatOptions(0)) -> Layout {
+    public func with(formats:[String], metrics:[String:Double]? = nil, options:NSLayoutFormatOptions = NSLayoutFormatOptions(rawValue: 0)) -> Layout {
         for format in formats {
             self.add(format, metrics: metrics, options: options)
         }
@@ -71,7 +71,7 @@ public class Layout {
     
         :returns: A reference to the Layout object.
     */
-    public func add(format:String, metrics:[String: AnyObject]? = nil, options: NSLayoutFormatOptions = NSLayoutFormatOptions(0)) -> Layout {
+    public func add(format:String, metrics:[String: AnyObject]? = nil, options: NSLayoutFormatOptions = NSLayoutFormatOptions(rawValue: 0)) -> Layout {
         let constraint = NSLayoutConstraint.constraintsWithVisualFormat(format, options: options, metrics: metrics, views: self.views)
         self.superview?.addConstraints(constraint)
         self.constraints += constraint
@@ -105,8 +105,8 @@ public class Layout {
     /**
         Returns the last constraint added to a superview.
     */
-    public func last() -> NSLayoutConstraint! {
-        return self.constraints.last as! NSLayoutConstraint
+    public func last() -> NSLayoutConstraint? {
+        return self.constraints.last
     }
 
     /**

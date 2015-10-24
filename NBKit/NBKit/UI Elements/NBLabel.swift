@@ -16,21 +16,22 @@ public class NBLabel: UILabel {
     public var padding:UIEdgeInsets?
 
     override public func drawTextInRect(rect: CGRect) {
-        if let padding = self.padding {
-            return super.drawTextInRect(UIEdgeInsetsInsetRect(rect, padding))
+        guard let padding = self.padding else {
+            return
         }
+        return super.drawTextInRect(UIEdgeInsetsInsetRect(rect, padding))
     }
 
     override public func textRectForBounds(bounds: CGRect, limitedToNumberOfLines numberOfLines: Int) -> CGRect {
-        if let padding = self.padding {
-            var rect = super.textRectForBounds(UIEdgeInsetsInsetRect(bounds, padding), limitedToNumberOfLines: numberOfLines)
-            rect.origin.x += padding.left
-            rect.origin.y += padding.top
-            rect.size.width += (padding.left + padding.right)
-            rect.size.height += (padding.top + padding.bottom)
-            return rect
+        guard let padding = self.padding else {
+            return super.textRectForBounds(bounds, limitedToNumberOfLines: numberOfLines)
         }
-        return super.textRectForBounds(bounds, limitedToNumberOfLines: numberOfLines)
+        var rect = super.textRectForBounds(UIEdgeInsetsInsetRect(bounds, padding), limitedToNumberOfLines: numberOfLines)
+        rect.origin.x += padding.left
+        rect.origin.y += padding.top
+        rect.size.width += (padding.left + padding.right)
+        rect.size.height += (padding.top + padding.bottom)
+        return rect
     }
     
 }

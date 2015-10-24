@@ -35,8 +35,6 @@ public class Layout {
         self.views = views
 
         for (_,view) in self.views {
-            //view.setTranslatesAutoresizingMaskIntoConstraints(false)
-
             // FIXME: not optimal
             if let superview = view.superview {
                 self.superview = superview
